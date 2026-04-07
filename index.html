@@ -345,7 +345,7 @@
             z-index: 10;
             width: 40px; height: 40px;
             border-radius: 50%;
-            background: rgba(250,244,240,0.85);
+            background: rgba(250,244,240,0.45);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(196,168,152,0.3);
@@ -571,6 +571,12 @@
             .about-grid { grid-template-columns: 1fr; gap: 3rem; }
             .about-visual { display: none; }
             .offer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .offer-body {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
             .gallery-grid {
                 display: flex;
                 gap: 0;
