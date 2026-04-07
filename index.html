@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uncorked Duo — Wine Knowledge & Tasting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush:      #EDD5C8;
+            --cream:      #FAF4F0;
+            --charcoal:   #2A2020;
+            --taupe:      #C4A898;
+            --taupe-lt:   #D9C0B4;
+            --warm-dark:  #1A1010;
+            --body-text:  #5A4844;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--cream);
+            color: var(--charcoal);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVIGATION ───────────────────────────────────────── */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 300;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.6rem 3.5rem;
+        }
+
+        .nav-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--charcoal);
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-brand:hover { color: var(--taupe); }
+
+        .nav-links { display: flex; gap: 2.5rem; }
+
+        .nav-links a {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--taupe); }
+
+        /* Hamburger button — mobile only */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 310;
+        }
+        .nav-hamburger span {
+            display: block;
+            width: 24px; height: 1px;
+            background: var(--charcoal);
+            transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
+            transform-origin: center;
+        }
+        /* Animate to × when open */
+        .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+        .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        /* ─── MOBILE MENU OVERLAY ──────────────────────────────── */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 290;
+            background: var(--cream);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .mobile-menu.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .mobile-menu a {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 2.4rem;
+            color: var(--charcoal);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            padding: 0.7rem 2rem;
+            transition: color 0.25s;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: color 0.25s, opacity 0.4s ease, transform 0.4s ease;
+        }
+        .mobile-menu.open a { opacity: 1; transform: none; }
+        .mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+        .mobile-menu.open a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+        .mobile-menu.open a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+        .mobile-menu a:hover { color: var(--taupe); }
+        .mobile-menu-rule {
+            width: 32px; height: 1px;
+            background: var(--taupe-lt);
+            margin: 1.5rem 0;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.3s;
+        }
+        .mobile-menu.open .mobile-menu-rule { opacity: 1; }
+        .mobile-menu-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--taupe);
+            opacity: 0;
+            transition: opacity 0.4s ease 0.35s;
+        }
+        .mobile-menu.open .mobile-menu-brand { opacity: 1; }
+
+        /* ─── HERO ─────────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 5rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 75% 60% at 50% 46%,
+                rgba(237,213,200,0.5) 0%, transparent 68%);
+            pointer-events: none;
+        }
+
+        .deco { position: absolute; pointer-events: none; }
+        .deco-tl {
+            top: -24px; left: -24px;
+            width: 230px; opacity: 0.13;
+            transform: rotate(-10deg);
+        }
+        .deco-br {
+            bottom: -24px; right: -24px;
+            width: 210px; opacity: 0.13;
+            transform: rotate(170deg) scaleX(-1);
+        }
+
+        .hero-logo {
+            width: min(260px, 62vw);
+            border-radius: 50%;
+            position: relative; z-index: 1;
+            margin-bottom: 2.8rem;
+            animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) both;
+        }
+        .hero-eyebrow {
+            font-size: 0.68rem; font-weight: 400;
+            letter-spacing: 0.28em; text-transform: uppercase;
+            color: var(--taupe); margin-bottom: 0.9rem;
+            animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 0.15s both;
+        }
+        .hero-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic; font-weight: 300;
+            font-size: clamp(1.55rem, 3.2vw, 2.3rem);
+            color: var(--charcoal); line-height: 1.4;
+            max-width: 500px;
+            animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 0.25s both;
+        }
+        .hero-rule {
+            width: 50px; height: 1px;
+            background: var(--taupe); margin: 2rem auto;
+            animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 0.38s both;
+        }
+        .hero-cta {
+            display: inline-block;
+            font-size: 0.7rem; font-weight: 400;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--charcoal); text-decoration: none;
+            border-bottom: 1px solid var(--taupe); padding-bottom: 3px;
+            transition: color 0.3s, border-color 0.3s;
+            animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 0.5s both;
+        }
+        .hero-cta:hover { color: var(--taupe); border-color: var(--taupe-lt); }
+
+        .scroll-hint {
+            position: absolute; bottom: 2.5rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 1.1s both;
+        }
+        .scroll-hint-bar {
+            width: 1px; height: 44px;
+            background: linear-gradient(to bottom, var(--taupe), transparent);
+            animation: breathe 2.4s ease-in-out infinite;
+        }
+        .scroll-hint-label {
+            font-size: 0.58rem; letter-spacing: 0.22em;
+            text-transform: uppercase; color: var(--taupe);
+        }
+
+        /* ─── SHARED SECTION ───────────────────────────────────── */
+        .section { padding: 8rem 2rem; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .label {
+            display: block; font-size: 0.67rem; font-weight: 400;
+            letter-spacing: 0.28em; text-transform: uppercase;
+            color: var(--taupe); margin-bottom: 1.1rem;
+        }
+        .title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem);
+            line-height: 1.18; color: var(--charcoal); margin-bottom: 2rem;
+        }
+        .title em { font-style: italic; font-weight: 300; }
+
+        .body-text { font-size: 0.96rem; line-height: 1.9; color: var(--body-text); }
+        .body-text + .body-text { margin-top: 1rem; }
+
+        /* ─── ABOUT ────────────────────────────────────────────── */
+        .about { background: var(--blush); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 6rem; align-items: center;
+        }
+        .about-visual {
+            display: flex; justify-content: center;
+            align-items: center; position: relative;
+        }
+        .ring {
+            position: absolute; border-radius: 50%;
+            border: 1px solid rgba(196,168,152,0.3);
+        }
+        .ring-sm { width: 270px; height: 270px; }
+        .ring-lg { width: 320px; height: 320px; border-color: rgba(196,168,152,0.14); }
+        .about-grape { width: 130px; position: relative; z-index: 1; opacity: 0.5; }
+
+        /* ─── OFFER ────────────────────────────────────────────── */
+        .offer { background: var(--cream); }
+
+        .offer-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; margin-top: 4.5rem;
+        }
+
+        .offer-card {
+            position: relative; padding-top: 2.5rem;
+            cursor: pointer;
+            background: none; border: none; text-align: left;
+            font-family: inherit; color: inherit;
+        }
+        .offer-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 40px; height: 1px;
+            background: var(--taupe); transition: width 0.6s ease;
+        }
+        .offer-card:hover::before,
+        .offer-card:focus-visible::before { width: 100%; }
+        .offer-card:focus-visible { outline: 2px solid var(--taupe); outline-offset: 6px; border-radius: 2px; }
+
+        .offer-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem; font-weight: 300; line-height: 1;
+            color: rgba(196,168,152,0.38); margin-bottom: 0.8rem;
+        }
+        .offer-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.55rem; font-weight: 500;
+            color: var(--charcoal); margin-bottom: 0.85rem; line-height: 1.25;
+        }
+        .offer-body { font-size: 0.92rem; line-height: 1.88; color: var(--body-text); }
+
+        .offer-more {
+            display: inline-block;
+            margin-top: 1.4rem;
+            font-size: 0.7rem; font-weight: 400;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--taupe);
+            border-bottom: 1px solid var(--taupe-lt);
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .offer-card:hover .offer-more {
+            color: var(--charcoal); border-color: var(--charcoal);
+        }
+
+        /* ─── GALLERY ──────────────────────────────────────────── */
+        .gallery { background: var(--charcoal); }
+        .gallery .label  { color: var(--taupe-lt); }
+        .gallery .title  { color: var(--cream); }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 240px;
+            gap: 10px;
+            margin-top: 3.5rem;
+        }
+
+        /* Varied heights for editorial feel */
+        .gallery-item:nth-child(1) { grid-row: span 2; }
+        .gallery-item:nth-child(5) { grid-row: span 2; }
+
+        .gallery-item {
+            position: relative; overflow: hidden;
+            background: var(--blush);
+            margin: 0;
+        }
+
+        /* Fallback background colours (show while image loads) */
+        .gallery-item:nth-child(1) { background: #EDD5C8; }
+        .gallery-item:nth-child(2) { background: #E3C8B6; }
+        .gallery-item:nth-child(3) { background: #D9C0B4; }
+        .gallery-item:nth-child(4) { background: #F0DDD4; }
+        .gallery-item:nth-child(5) { background: #C4A898; }
+        .gallery-item:nth-child(6) { background: #E8CFC0; }
+        .gallery-item:nth-child(7) { background: #D5BAA8; }
+
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
+        }
+        .gallery-item:hover img { transform: scale(1.04); }
+
+        /* ─── SOCIAL ───────────────────────────────────────────── */
+        .social { background: var(--warm-dark); text-align: center; }
+        .social .label { color: var(--taupe-lt); }
+        .social .title { color: var(--cream); }
+
+        .social-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic; font-size: 1.12rem;
+            color: var(--taupe); margin-top: -1.2rem; margin-bottom: 3.5rem;
+        }
+
+        .platforms {
+            display: flex; justify-content: center;
+            max-width: 520px; margin: 0 auto;
+            border: 1px solid rgba(196,168,152,0.2);
+        }
+        .platform {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 1rem; padding: 2.8rem 1rem;
+            text-decoration: none;
+            color: rgba(250,244,240,0.75);
+            border-right: 1px solid rgba(196,168,152,0.2);
+            transition: background 0.35s, color 0.35s;
+        }
+        .platform:last-child { border-right: none; }
+        .platform:hover { background: rgba(237,213,200,0.06); color: var(--blush); }
+        .platform svg { width: 22px; height: 22px; flex-shrink: 0; }
+        .platform-name { font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; }
+
+        /* ─── CONTACT ──────────────────────────────────────────── */
+        .contact { background: var(--blush); text-align: center; }
+        .contact .container { display: flex; flex-direction: column; align-items: center; }
+        .contact .body-text { max-width: 450px; text-align: center; }
+
+        .contact-email {
+            display: inline-block; margin-top: 3rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic; font-size: 1.4rem; font-weight: 400;
+            color: var(--charcoal); text-decoration: none;
+            border-bottom: 1px solid rgba(42,32,32,0.28); padding-bottom: 4px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .contact-email:hover { color: #6B3830; border-color: #6B3830; }
+
+        .contact-grape { margin-top: 4rem; width: 70px; opacity: 0.18; }
+
+        /* ─── FOOTER ───────────────────────────────────────────── */
+        .footer {
+            background: var(--warm-dark);
+            color: rgba(196,168,152,0.5);
+            text-align: center; padding: 2rem;
+            font-size: 0.68rem; letter-spacing: 0.14em;
+        }
+
+        /* ─── MODAL ────────────────────────────────────────────── */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 500;
+            background: rgba(26,16,16,0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 2rem;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+        .modal {
+            background: var(--cream);
+            max-width: 560px; width: 100%;
+            max-height: 90vh; overflow-y: auto;
+            padding: 3.5rem;
+            position: relative;
+            transform: translateY(24px) scale(0.98);
+            transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+        }
+        .modal-overlay.open .modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute; top: 1.4rem; right: 1.4rem;
+            background: none; border: none; cursor: pointer;
+            color: var(--taupe); padding: 0.3rem;
+            transition: color 0.25s;
+            line-height: 1;
+        }
+        .modal-close:hover { color: var(--charcoal); }
+        .modal-close svg { width: 20px; height: 20px; display: block; }
+
+        .modal-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem; font-weight: 300; line-height: 1;
+            color: rgba(196,168,152,0.35); margin-bottom: 0.6rem;
+        }
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem; font-weight: 500;
+            color: var(--charcoal); margin-bottom: 1.5rem; line-height: 1.2;
+        }
+        .modal-rule {
+            width: 40px; height: 1px; background: var(--taupe); margin-bottom: 1.8rem;
+        }
+        .modal-body { font-size: 0.94rem; line-height: 1.9; color: var(--body-text); margin-bottom: 1.8rem; }
+
+        .modal-details {
+            list-style: none; margin-bottom: 2.5rem;
+        }
+        .modal-details li {
+            display: flex; align-items: baseline; gap: 0.8rem;
+            font-size: 0.88rem; line-height: 1.7; color: var(--body-text);
+            padding: 0.55rem 0;
+            border-bottom: 1px solid rgba(196,168,152,0.25);
+        }
+        .modal-details li::before {
+            content: '—';
+            color: var(--taupe); flex-shrink: 0;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .modal-btn {
+            display: inline-block; margin-top: 0.5rem;
+            padding: 0.95rem 2.4rem;
+            background: var(--charcoal); color: var(--cream);
+            font-size: 0.72rem; font-weight: 400;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        .modal-btn:hover { background: #3D2A28; }
+
+        /* ─── FADE-IN ──────────────────────────────────────────── */
+        .fi { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+        .fi.d1 { transition-delay: 0.1s; }
+        .fi.d2 { transition-delay: 0.2s; }
+        .fi.d3 { transition-delay: 0.32s; }
+        .fi.in { opacity: 1; transform: none; }
+
+        /* ─── KEYFRAMES ────────────────────────────────────────── */
+        @keyframes riseUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes breathe {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.25; }
+        }
+
+        /* ─── RESPONSIVE ───────────────────────────────────────── */
+        @media (max-width: 820px) {
+            .nav { padding: 1.2rem 1.5rem; }
+            .nav-links { display: none; }
+            .nav-hamburger { display: flex; }
+            .mobile-menu { display: flex; }
+            .section { padding: 5.5rem 1.5rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .about-visual { display: none; }
+            .offer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 200px;
+            }
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(5) { grid-row: span 1; }
+            .platforms { flex-direction: column; max-width: 260px; }
+            .platform { border-right: none; border-bottom: 1px solid rgba(196,168,152,0.2); padding: 2rem 1.5rem; flex-direction: row; gap: 1.2rem; justify-content: center; }
+            .platform:last-child { border-bottom: none; }
+            .modal { padding: 2.5rem 1.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ─────────────────────────────────────────── -->
+<nav class="nav">
+    <a href="#home" class="nav-brand">Uncorked Duo</a>
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#offer">Evenings</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#social">Follow</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
+
+<!-- ── MOBILE MENU OVERLAY ─────────────────────────────────── -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation menu">
+    <a href="#about"   onclick="closeMenu()">About</a>
+    <a href="#offer"   onclick="closeMenu()">Evenings</a>
+    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="#social"  onclick="closeMenu()">Follow</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+    <div class="mobile-menu-rule"></div>
+    <span class="mobile-menu-brand">Uncorked Duo</span>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="hero" id="home">
+
+    <svg class="deco deco-tl" viewBox="0 0 200 240" fill="none" aria-hidden="true">
+        <path d="M100 58 C100 42 93 28 80 15" stroke="#2A2020" stroke-width="1.1" stroke-linecap="round"/>
+        <path d="M94 40 C78 28 56 36 52 54 C68 46 84 48 94 40Z" stroke="#2A2020" stroke-width="1"/>
+        <path d="M94 40 C78 44 64 49 52 54" stroke="#2A2020" stroke-width="0.55"/>
+        <path d="M98 33 C110 24 122 28 124 40" stroke="#2A2020" stroke-width="0.8" stroke-linecap="round"/>
+        <circle cx="100" cy="70"  r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="86"  cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="114" cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="72"  cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="100" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="128" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="86"  cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="114" cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="100" cy="166" r="12" stroke="#2A2020" stroke-width="1"/>
+    </svg>
+
+    <svg class="deco deco-br" viewBox="0 0 200 240" fill="none" aria-hidden="true">
+        <path d="M100 58 C100 42 93 28 80 15" stroke="#2A2020" stroke-width="1.1" stroke-linecap="round"/>
+        <path d="M94 40 C78 28 56 36 52 54 C68 46 84 48 94 40Z" stroke="#2A2020" stroke-width="1"/>
+        <path d="M94 40 C78 44 64 49 52 54" stroke="#2A2020" stroke-width="0.55"/>
+        <path d="M98 33 C110 24 122 28 124 40" stroke="#2A2020" stroke-width="0.8" stroke-linecap="round"/>
+        <circle cx="100" cy="70"  r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="86"  cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="114" cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="72"  cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="100" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="128" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="86"  cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="114" cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
+        <circle cx="100" cy="166" r="12" stroke="#2A2020" stroke-width="1"/>
+    </svg>
+
+    <img src="Uncorked Duo.png" alt="Uncorked Duo" class="hero-logo">
+    <p class="hero-eyebrow">Wine Knowledge &amp; Tasting</p>
+    <p class="hero-tagline">Discovering the world of wine,<br>one beautiful glass at a time</p>
+    <div class="hero-rule"></div>
+    <a href="#about" class="hero-cta">Pour yourself in</a>
+
+    <div class="scroll-hint" aria-hidden="true">
+        <div class="scroll-hint-bar"></div>
+        <span class="scroll-hint-label">Scroll</span>
+    </div>
+</section>
+
+<!-- ── ABOUT ───────────────────────────────────────────────── -->
+<section class="section about" id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div>
+                <span class="label fi">Who We Are</span>
+                <h2 class="title fi d1">Twin sisters,<br>one <em>love of wine</em></h2>
+                <p class="body-text fi d2">
+                    We're identical twins who discovered early on that we shared more than
+                    just a face — we share a deep, unstoppable passion for wine. Together
+                    we've made it our mission to bring that love to everyone around us:
+                    making the world of wine feel warm, welcoming, and genuinely exciting.
+                </p>
+                <p class="body-text fi d3" style="margin-top:1.1rem">
+                    Whether you're curious about your first Burgundy or looking to deepen
+                    what you already know, we're here to guide the journey. From the
+                    rolling vineyards of Bordeaux to the sun-drenched slopes of Sicily,
+                    we share stories, tasting notes, and the sheer joy of discovery —
+                    one glass at a time.
+                </p>
+            </div>
+            <div class="about-visual fi d2" aria-hidden="true">
+                <div class="ring ring-lg"></div>
+                <div class="ring ring-sm"></div>
+                <svg class="about-grape" viewBox="0 0 160 210" fill="none">
+                    <path d="M80 44 C80 30 73 18 62 8" stroke="#2A2020" stroke-width="1.2" stroke-linecap="round"/>
+                    <path d="M76 28 C60 18 40 24 38 40 C52 34 70 36 76 28Z" stroke="#2A2020" stroke-width="1" fill="none"/>
+                    <path d="M76 28 C60 32 48 36 38 40" stroke="#2A2020" stroke-width="0.6"/>
+                    <path d="M79 22 C90 14 104 16 106 28 C96 26 83 26 79 22Z" stroke="#2A2020" stroke-width="1" fill="none"/>
+                    <circle cx="80"  cy="56"  r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="66"  cy="80"  r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="94"  cy="80"  r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="52"  cy="104" r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="80"  cy="104" r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="108" cy="104" r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="66"  cy="128" r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="94"  cy="128" r="12" stroke="#2A2020" stroke-width="1.2"/>
+                    <circle cx="80"  cy="152" r="12" stroke="#2A2020" stroke-width="1.2"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── OFFER ───────────────────────────────────────────────── -->
+<section class="section offer" id="offer">
+    <div class="container">
+        <span class="label fi">What We Do</span>
+        <h2 class="title fi d1">Crafted experiences<br>for <em>every palate</em></h2>
+        <div class="offer-grid">
+
+            <div class="offer-card fi d1"
+                 role="button" tabindex="0"
+                 onclick="openModal('modal-tastings')"
+                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-tastings')">
+                <div class="offer-num">01</div>
+                <h3 class="offer-title">Wine Tasting Evenings</h3>
+                <p class="offer-body">
+                    Intimate evenings designed to awaken your senses. Explore curated
+                    selections of wines from across the globe in a relaxed, convivial
+                    setting — perfect for groups of friends, special occasions, or
+                    simply discovering something entirely new.
+                </p>
+                <span class="offer-more">Find out more →</span>
+            </div>
+
+            <div class="offer-card fi d2"
+                 role="button" tabindex="0"
+                 onclick="openModal('modal-education')"
+                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-education')">
+                <div class="offer-num">02</div>
+                <h3 class="offer-title">Wine Knowledge &amp; Education</h3>
+                <p class="offer-body">
+                    Follow along as we demystify the world of wine — from grape
+                    varieties and celebrated regions to food pairings and tasting
+                    technique. Our content turns every scroll into a wine lesson
+                    you'll actually enjoy.
+                </p>
+                <span class="offer-more">Find out more →</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── GALLERY ─────────────────────────────────────────────── -->
+<section class="section gallery" id="gallery">
+    <div class="container">
+        <span class="label fi">Moments</span>
+        <h2 class="title fi d1">An evening with<br><em>Uncorked Duo</em></h2>
+
+        <div class="gallery-grid">
+
+            <!-- Tall slot 1 — portrait photo works best here -->
+            <figure class="gallery-item fi">
+                <img src="chelsea-pridham-Pj1JHHRqD3c-unsplash.jpg"
+                     alt="Cheese board and wine glasses with a vineyard in the background">
+            </figure>
+
+            <figure class="gallery-item fi d1">
+                <img src="julie-sd-fDTv0BqaiFw-unsplash.jpg"
+                     alt="Red, rosé and white wine glasses lined up at a tasting">
+            </figure>
+
+            <figure class="gallery-item fi d2">
+                <img src="maksym-kaharlytskyi-3uJt73tr4hI-unsplash.jpg"
+                     alt="Four tasting glasses arranged on a wooden wine barrel">
+            </figure>
+
+            <figure class="gallery-item fi d1">
+                <img src="kelsey-chance-tAH2cA_BL5g-unsplash.jpg"
+                     alt="Friends laughing and clinking wine glasses together">
+            </figure>
+
+            <!-- Tall slot 2 — portrait photo works best here -->
+            <figure class="gallery-item fi d2">
+                <img src="alexandra-marta-0D8pkOhd5_8-unsplash.jpg"
+                     alt="Elegant wine glasses and canapés laid out for a tasting evening">
+            </figure>
+
+            <figure class="gallery-item fi d3">
+                <img src="julie-sd-LwP0dUVzZWg-unsplash.jpg"
+                     alt="A wine tasting evening with glasses and bottles on the table">
+            </figure>
+
+            <figure class="gallery-item fi d1">
+                <img src="monica-hudec-eZMcUy7gATs-unsplash.jpg"
+                     alt="A woman enjoying red and white wine at a tasting">
+            </figure>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── SOCIAL ──────────────────────────────────────────────── -->
+<section class="section social" id="social">
+    <div class="container">
+        <span class="label fi">Find Us Online</span>
+        <h2 class="title fi d1">Follow the <em>journey</em></h2>
+        <p class="social-sub fi d2">Wine tips, tasting notes &amp; a little adventure</p>
+
+        <div class="platforms fi d3">
+            <a href="#" class="platform" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
+                </svg>
+                <span class="platform-name">Instagram</span>
+            </a>
+            <a href="#" class="platform" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.25 8.25 0 0 0 4.83 1.55V6.79a4.85 4.85 0 0 1-1.06-.1z"/>
+                </svg>
+                <span class="platform-name">TikTok</span>
+            </a>
+            <a href="#" class="platform" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+                <span class="platform-name">Facebook</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ── CONTACT ─────────────────────────────────────────────── -->
+<section class="section contact" id="contact">
+    <div class="container">
+        <span class="label fi">Get In Touch</span>
+        <h2 class="title fi d1">Let's raise<br>a <em>glass together</em></h2>
+        <p class="body-text fi d2">
+            Have a question about our events, want to book a tasting evening,
+            or simply want to talk wine? We'd love to hear from you.
+        </p>
+        <a href="mailto:hello@uncorkedduo.com" class="contact-email fi d3">
+            hello@uncorkedduo.com
+        </a>
+        <svg class="contact-grape fi" viewBox="0 0 80 100" fill="none" aria-hidden="true">
+            <path d="M40 26 C40 16 35 8 28 2" stroke="#2A2020" stroke-width="1" stroke-linecap="round"/>
+            <path d="M38 14 C30 8 20 12 18 22 C25 18 34 19 38 14Z" stroke="#2A2020" stroke-width="0.9" fill="none"/>
+            <circle cx="40" cy="38" r="10" stroke="#2A2020" stroke-width="1"/>
+            <circle cx="28" cy="56" r="10" stroke="#2A2020" stroke-width="1"/>
+            <circle cx="52" cy="56" r="10" stroke="#2A2020" stroke-width="1"/>
+            <circle cx="40" cy="74" r="10" stroke="#2A2020" stroke-width="1"/>
+        </svg>
+    </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer class="footer">
+    <p>&copy; 2026 Uncorked Duo. All rights reserved.</p>
+</footer>
+
+<!-- ══ MODALS ══════════════════════════════════════════════════ -->
+
+<!-- Modal: Wine Tasting Evenings -->
+<div class="modal-overlay" id="modal-tastings" role="dialog" aria-modal="true" aria-labelledby="modal-tastings-title">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('modal-tastings')" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="modal-num">01</div>
+        <h2 class="modal-title" id="modal-tastings-title">Wine Tasting Evenings</h2>
+        <div class="modal-rule"></div>
+        <p class="modal-body">
+            Our tasting evenings are crafted to be as much about atmosphere as they
+            are about wine. Guided warmly by the two of us, each evening takes you on
+            a journey through carefully chosen bottles — telling the story behind every
+            glass, from the vineyard to your table.
+        </p>
+        <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
+            Whether you're celebrating a birthday, planning a unique date night, or
+            simply gathering friends for something a little different, we tailor each
+            evening to your group.
+        </p>
+        <ul class="modal-details">
+            <li>Guided by your hosts — us, the Uncorked Duo</li>
+            <li>Curated wine selections from around the world</li>
+            <li>Small, intimate group settings</li>
+            <li>Perfect for celebrations, hen parties &amp; private events</li>
+            <li>Suitable for all levels — beginners very welcome</li>
+        </ul>
+        <a href="mailto:hello@uncorkedduo.com?subject=Booking%20Enquiry%20%E2%80%94%20Wine%20Tasting%20Evening" class="modal-btn">
+            Book an Evening
+        </a>
+    </div>
+</div>
+
+<!-- Modal: Wine Knowledge & Education -->
+<div class="modal-overlay" id="modal-education" role="dialog" aria-modal="true" aria-labelledby="modal-education-title">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('modal-education')" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="modal-num">02</div>
+        <h2 class="modal-title" id="modal-education-title">Wine Knowledge &amp; Education</h2>
+        <div class="modal-rule"></div>
+        <p class="modal-body">
+            Wine can feel intimidating — all those regions, grapes, and vintages. But
+            it doesn't have to be. We share our knowledge in a way that's genuine,
+            approachable, and actually fun to absorb. Follow us across our social
+            channels for regular tips, tastings, and discoveries.
+        </p>
+        <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
+            Want us to bring our education in person? We'd love to hear about
+            what you have in mind — from corporate team events to private masterclasses.
+        </p>
+        <ul class="modal-details">
+            <li>Wine regions, grape varieties &amp; tasting notes demystified</li>
+            <li>Food &amp; wine pairing guides</li>
+            <li>Regular content across Instagram, TikTok &amp; Facebook</li>
+            <li>Private &amp; corporate masterclasses available on request</li>
+            <li>No prior wine knowledge needed</li>
+        </ul>
+        <a href="mailto:hello@uncorkedduo.com?subject=Enquiry%20%E2%80%94%20Wine%20Education" class="modal-btn">
+            Get In Touch
+        </a>
+    </div>
+</div>
+
+<script>
+    // ── Mobile menu ────────────────────────────────────────────
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const btn  = document.querySelector('.nav-hamburger');
+        const open = menu.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function closeMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const btn  = document.querySelector('.nav-hamburger');
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', false);
+        document.body.style.overflow = '';
+    }
+
+    // ── Scroll fade-in ─────────────────────────────────────────
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fi').forEach(el => io.observe(el));
+
+    // ── Modals ─────────────────────────────────────────────────
+    function openModal(id) {
+        const overlay = document.getElementById(id);
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        overlay.querySelector('.modal-close').focus();
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Close on backdrop click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', e => {
+            if (e.target === overlay) closeModal(overlay.id);
+        });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.open')
+                .forEach(m => closeModal(m.id));
+        }
+    });
+
+</script>
+</body>
+</html>
