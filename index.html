@@ -40,6 +40,14 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.6rem 3.5rem;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: 1px solid transparent;
+            transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+        }
+
+        .nav.scrolled {
             background: rgba(250,244,240,0.75);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -602,7 +610,7 @@
 
 <!-- ── NAVIGATION ─────────────────────────────────────────── -->
 <nav class="nav">
-    <a href="#home" class="nav-brand">Uncorked Duo</a>
+    <a href="#home" class="nav-brand" onclick="closeMenu()">Uncorked Duo</a>
     <div class="nav-links">
         <a href="#about">About</a>
         <a href="#offer">Evenings</a>
@@ -941,6 +949,15 @@
 </div>
 
 <script>
+    // ── Nav background on scroll ───────────────────────────────
+    const nav  = document.querySelector('.nav');
+    const hero = document.getElementById('home');
+    function updateNav() {
+        nav.classList.toggle('scrolled', window.scrollY > 10);
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
     // ── Gallery carousel (mobile only) ────────────────────────
     (function () {
         if (window.innerWidth > 820) return;
