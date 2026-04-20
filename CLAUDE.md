@@ -4,9 +4,19 @@
 Single-page website for Uncorked Duo — twin sisters (wine education, tastings, travel).
 All code lives in a single file: **`index.html`** (HTML + CSS + JS, no build step, no framework).
 
+## File structure
+```
+uncorked-duo/
+├── index.html      — HTML shell only (no inline styles or scripts)
+├── css/
+│   └── main.css    — all styles (mobile-first, single file)
+└── js/
+    └── main.js     — all JavaScript (no framework, vanilla only)
+```
+
 ## Tech stack
 - Vanilla HTML, CSS, JS — no bundler, no npm, no dependencies
-- Google Fonts: Cormorant Garamond (headings) + Inter (body)
+- Google Fonts: Cormorant Garamond (headings) + Jost (body)
 - Deployed as static HTML
 
 ## Design approach
