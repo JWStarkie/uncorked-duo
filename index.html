@@ -39,7 +39,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.6rem 3.5rem;
+            padding: 1rem 1.5rem;
             background: transparent;
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
@@ -48,26 +48,28 @@
         }
 
         .nav.scrolled {
-            background: rgba(250,244,240,0.75);
+            background: rgba(250,244,240,0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(196,168,152,0.2);
         }
 
         .nav-brand {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.05rem;
-            color: var(--charcoal);
-            letter-spacing: 0.04em;
+            display: inline-flex;
+            align-items: center;
             text-decoration: none;
             opacity: 0;
-            transition: color 0.3s, opacity 0.4s ease;
+            transition: opacity 0.4s ease;
         }
         .nav.scrolled .nav-brand { opacity: 1; }
-        .nav-brand:hover { color: var(--taupe); }
+        .nav-brand img {
+            height: 38px;
+            width: auto;
+            display: block;
+        }
 
-        .nav-links { display: flex; gap: 2.5rem; }
+        /* Desktop nav links — hidden on mobile */
+        .nav-links { display: none; }
 
         .nav-links a {
             font-size: 0.7rem;
@@ -80,9 +82,9 @@
         }
         .nav-links a:hover { color: var(--taupe); }
 
-        /* Hamburger button — mobile only */
+        /* Hamburger button — visible on mobile */
         .nav-hamburger {
-            display: none;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             gap: 5px;
@@ -99,14 +101,13 @@
             transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
             transform-origin: center;
         }
-        /* Animate to × when open */
         .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
         .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
         .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
         /* ─── MOBILE MENU OVERLAY ──────────────────────────────── */
         .mobile-menu {
-            display: none;
+            display: flex;
             position: fixed;
             inset: 0;
             z-index: 290;
@@ -132,7 +133,6 @@
             text-decoration: none;
             letter-spacing: 0.02em;
             padding: 0.7rem 2rem;
-            transition: color 0.25s;
             opacity: 0;
             transform: translateY(16px);
             transition: color 0.25s, opacity 0.4s ease, transform 0.4s ease;
@@ -175,7 +175,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            padding: 8rem 2rem 5rem;
+            padding: 6rem 1.5rem 4rem;
         }
 
         .hero::before {
@@ -186,26 +186,14 @@
             pointer-events: none;
         }
 
-        .deco { position: absolute; pointer-events: none; }
-        .deco-tl {
-            top: -24px; left: -24px;
-            width: 230px; opacity: 0.13;
-            transform: rotate(-10deg);
-        }
-        .deco-br {
-            bottom: -24px; right: -24px;
-            width: 210px; opacity: 0.13;
-            transform: rotate(170deg) scaleX(-1);
-        }
-
         .hero-logo {
-            width: min(260px, 62vw);
+            width: min(220px, 62vw);
             position: relative; z-index: 1;
-            margin-bottom: 2.8rem;
+            margin-bottom: 2.2rem;
             animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) both;
         }
         .hero-eyebrow {
-            font-size: 0.68rem; font-weight: 400;
+            font-size: 0.65rem; font-weight: 400;
             letter-spacing: 0.28em; text-transform: uppercase;
             color: var(--taupe); margin-bottom: 0.9rem;
             animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 0.15s both;
@@ -213,14 +201,14 @@
         .hero-tagline {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic; font-weight: 300;
-            font-size: clamp(1.55rem, 3.2vw, 2.3rem);
+            font-size: clamp(1.5rem, 6vw, 2.3rem);
             color: var(--charcoal); line-height: 1.4;
             max-width: 500px;
             animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 0.25s both;
         }
         .hero-rule {
             width: 50px; height: 1px;
-            background: var(--taupe); margin: 2rem auto;
+            background: var(--taupe); margin: 1.8rem auto;
             animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 0.38s both;
         }
         .hero-cta {
@@ -235,38 +223,49 @@
         .hero-cta:hover { color: var(--taupe); border-color: var(--taupe-lt); }
 
         .scroll-hint {
-            position: absolute; bottom: 2.5rem; left: 50%;
-            transform: translateX(-50%);
+            position: absolute; bottom: 2rem;
+            left: 0; right: 0;
             display: flex; flex-direction: column; align-items: center; gap: 8px;
             animation: riseUp 1.5s cubic-bezier(.16,1,.3,1) 1.1s both;
         }
         .scroll-hint-bar {
-            width: 1px; height: 44px;
-            background: linear-gradient(to bottom, var(--taupe), transparent);
-            animation: breathe 2.4s ease-in-out infinite;
+            width: 1px; height: 36px;
+            background: rgba(196,168,152,0.18);
+            position: relative;
+            overflow: hidden;
+        }
+        .scroll-hint-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 55%;
+            background: linear-gradient(to bottom, transparent, var(--taupe), transparent);
+            animation: scrollDown 1.8s ease-in-out infinite;
         }
         .scroll-hint-label {
             font-size: 0.58rem; letter-spacing: 0.22em;
             text-transform: uppercase; color: var(--taupe);
+            animation: breathe 1.8s ease-in-out infinite;
+            animation-delay: 0.4s;
         }
 
         /* ─── SHARED SECTION ───────────────────────────────────── */
-        .section { padding: 8rem 2rem; }
+        .section { padding: 5rem 1.5rem; }
         .container { max-width: 1000px; margin: 0 auto; }
 
         .label {
-            display: block; font-size: 0.67rem; font-weight: 400;
+            display: block; font-size: 0.65rem; font-weight: 400;
             letter-spacing: 0.28em; text-transform: uppercase;
-            color: var(--taupe); margin-bottom: 1.1rem;
+            color: var(--taupe); margin-bottom: 1rem;
         }
         .title {
             font-family: 'Cormorant Garamond', serif;
-            font-weight: 400; font-size: clamp(2rem, 4.5vw, 3rem);
-            line-height: 1.18; color: var(--charcoal); margin-bottom: 2rem;
+            font-weight: 400; font-size: clamp(1.9rem, 6vw, 3rem);
+            line-height: 1.18; color: var(--charcoal); margin-bottom: 1.6rem;
         }
         .title em { font-style: italic; font-weight: 300; }
 
-        .body-text { font-size: 0.96rem; line-height: 1.9; color: var(--body-text); }
+        .body-text { font-size: 0.95rem; line-height: 1.9; color: var(--body-text); }
         .body-text + .body-text { margin-top: 1rem; }
 
         /* ─── ABOUT ────────────────────────────────────────────── */
@@ -274,27 +273,76 @@
 
         .about-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 6rem; align-items: center;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
         }
-        .about-visual {
-            display: flex; justify-content: center;
-            align-items: center; position: relative;
-        }
+        .about-visual { display: none; }
+
         .ring {
             position: absolute; border-radius: 50%;
             border: 1px solid rgba(196,168,152,0.3);
         }
         .ring-sm { width: 270px; height: 270px; }
         .ring-lg { width: 320px; height: 320px; border-color: rgba(196,168,152,0.14); }
-        .about-grape { width: 130px; position: relative; z-index: 1; opacity: 0.5; }
+
+        /* ─── ABOUT READ MORE ──────────────────────────────────── */
+        .about-full { display: none; }
+
+        .about-more {
+            display: inline-block;
+            margin-top: 1.4rem;
+            font-size: 0.7rem; font-weight: 400;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--taupe);
+            background: none; border: none;
+            border-bottom: 1px solid var(--taupe-lt);
+            padding: 0 0 2px; cursor: pointer;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .about-more:hover { color: var(--charcoal); border-color: var(--charcoal); }
+
+        /* ─── QUALIFICATIONS ───────────────────────────────────── */
+        .quals-label {
+            display: block;
+            font-size: 0.6rem; font-weight: 400;
+            letter-spacing: 0.24em; text-transform: uppercase;
+            color: var(--taupe); margin-bottom: 0.75rem; margin-top: 2.5rem;
+        }
+        .quals { display: flex; flex-direction: column; }
+        .qual {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: baseline;
+            gap: 0.75rem;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(196,168,152,0.25);
+        }
+        .qual:last-child { border-bottom: none; }
+        .qual-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.96rem; font-weight: 500;
+            color: var(--charcoal);
+        }
+        .qual-school {
+            font-size: 0.72rem; color: var(--body-text);
+            text-align: right; line-height: 1.5;
+        }
+        .qual-progress {
+            display: block;
+            font-size: 0.6rem; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--taupe);
+            margin-top: 0.1rem;
+        }
 
         /* ─── OFFER ────────────────────────────────────────────── */
         .offer { background: var(--cream); }
 
         .offer-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 4rem; margin-top: 4.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
 
         .offer-card {
@@ -315,19 +363,25 @@
 
         .offer-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem; font-weight: 300; line-height: 1;
+            font-size: 3rem; font-weight: 300; line-height: 1;
             color: rgba(196,168,152,0.38); margin-bottom: 0.8rem;
         }
         .offer-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.55rem; font-weight: 500;
-            color: var(--charcoal); margin-bottom: 0.85rem; line-height: 1.25;
+            font-size: 1.4rem; font-weight: 500;
+            color: var(--charcoal); margin-bottom: 0.75rem; line-height: 1.25;
         }
-        .offer-body { font-size: 0.92rem; line-height: 1.88; color: var(--body-text); }
+        .offer-body {
+            font-size: 0.92rem; line-height: 1.88; color: var(--body-text);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
         .offer-more {
             display: inline-block;
-            margin-top: 1.4rem;
+            margin-top: 1.2rem;
             font-size: 0.7rem; font-weight: 400;
             letter-spacing: 0.18em; text-transform: uppercase;
             color: var(--taupe);
@@ -339,117 +393,112 @@
             color: var(--charcoal); border-color: var(--charcoal);
         }
 
-        /* ─── GALLERY ──────────────────────────────────────────── */
-        .gallery { background: var(--charcoal); }
-        .gallery .label  { color: var(--taupe-lt); }
-        .gallery .title  { color: var(--cream); }
+        /* ─── WORK WITH US ─────────────────────────────────────── */
+        .collab { background: var(--warm-dark); }
+        .collab .label { color: var(--taupe-lt); }
+        .collab .title { color: var(--cream); }
+        .collab .body-text { color: rgba(250,244,240,0.65); }
+        .collab .body-text + .body-text { margin-top: 1rem; }
 
-        .gallery-wrapper { overflow: hidden; margin-top: 3.5rem; position: relative; }
-
-        /* ─── CAROUSEL ARROWS (mobile) ────────────────────────── */
-        .carousel-btn {
-            display: none;
-            position: absolute;
-            top: 50%; transform: translateY(-50%);
-            z-index: 10;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: rgba(250,244,240,0.45);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border: 1px solid rgba(196,168,152,0.3);
-            cursor: pointer;
-            align-items: center; justify-content: center;
-            color: var(--charcoal);
-            transition: background 0.25s, transform 0.25s;
-        }
-        .carousel-btn:hover { background: var(--cream); }
-        .carousel-btn:active { transform: translateY(-50%) scale(0.92); }
-        .carousel-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-        .carousel-btn-prev { left: 0.75rem; }
-        .carousel-btn-next { right: 0.75rem; }
-
-        .gallery-grid {
+        .collab-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 240px;
-            gap: 10px;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 1rem;
+            align-items: start;
         }
 
-        /* ─── CAROUSEL DOTS (mobile) ───────────────────────────── */
-        .carousel-dots {
-            display: none;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 1.2rem;
+        .collab-list {
+            list-style: none;
+            margin-top: 2rem;
         }
-        .carousel-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: rgba(196,168,152,0.3);
-            border: none; cursor: pointer; padding: 0;
-            transition: background 0.3s, transform 0.3s;
+        .collab-list li {
+            display: flex; align-items: baseline; gap: 0.9rem;
+            font-size: 0.9rem; line-height: 1.75;
+            color: rgba(250,244,240,0.6);
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(196,168,152,0.12);
         }
-        .carousel-dot.active {
-            background: var(--taupe);
-            transform: scale(1.4);
+        .collab-list li:last-child { border-bottom: none; }
+        .collab-list li::before {
+            content: '—'; color: var(--taupe); flex-shrink: 0;
+            font-family: 'Cormorant Garamond', serif;
         }
-
-        /* Varied heights for editorial feel */
-        .gallery-item:nth-child(1) { grid-row: span 2; }
-        .gallery-item:nth-child(5) { grid-row: span 2; }
-
-        .gallery-item {
-            position: relative; overflow: hidden;
-            background: var(--blush);
-            margin: 0;
+        .collab-list-title {
+            display: block; font-weight: 400; color: var(--cream);
         }
 
-        /* Fallback background colours (show while image loads) */
-        .gallery-item:nth-child(1) { background: #EDD5C8; }
-        .gallery-item:nth-child(2) { background: #E3C8B6; }
-        .gallery-item:nth-child(3) { background: #D9C0B4; }
-        .gallery-item:nth-child(4) { background: #F0DDD4; }
-        .gallery-item:nth-child(5) { background: #C4A898; }
-        .gallery-item:nth-child(6) { background: #E8CFC0; }
-        .gallery-item:nth-child(7) { background: #D5BAA8; }
+        .collab-aside { padding-top: 0; }
 
-        .gallery-item img {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
-            transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
+        .collab-aside-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic; font-size: 1.2rem; font-weight: 300;
+            color: var(--taupe-lt); line-height: 1.55; margin-bottom: 2rem;
         }
-        .gallery-item:hover img { transform: scale(1.04); }
 
-        /* ─── SOCIAL ───────────────────────────────────────────── */
-        .social { background: var(--warm-dark); text-align: center; }
-        .social .label { color: var(--taupe-lt); }
-        .social .title { color: var(--cream); }
+        .collab-meta {
+            display: flex; flex-direction: column; gap: 0.55rem;
+            margin-bottom: 2rem;
+        }
+        .collab-meta-item {
+            display: flex; align-items: center; gap: 0.7rem;
+            font-size: 0.8rem; color: rgba(250,244,240,0.45);
+        }
+        .collab-meta-item::before {
+            content: '·'; color: var(--taupe); font-size: 1.1rem; line-height: 1;
+        }
 
-        .social-sub {
+        .collab-email {
+            display: inline-block;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic; font-size: 1.15rem;
+            color: var(--blush); text-decoration: none;
+            border-bottom: 1px solid rgba(237,213,200,0.28); padding-bottom: 3px;
+            transition: color 0.3s, border-color 0.3s;
+            word-break: break-all;
+        }
+        .collab-email:hover { color: var(--taupe-lt); border-color: var(--taupe); }
+
+        /* ─── INSTAGRAM ────────────────────────────────────────── */
+        .instagram { background: var(--charcoal); text-align: center; }
+        .instagram .label { color: var(--taupe-lt); }
+        .instagram .title { color: var(--cream); }
+
+        .instagram-handle {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic; font-size: 1.12rem;
-            color: var(--taupe); margin-top: -1.2rem; margin-bottom: 3.5rem;
+            color: var(--taupe); margin-top: -1.2rem; margin-bottom: 2.5rem;
         }
 
-        .platforms {
-            display: flex; justify-content: center;
-            max-width: 520px; margin: 0 auto;
-            border: 1px solid rgba(196,168,152,0.2);
+        .instagram-feed-wrapper {
+            margin: 0 auto 2.5rem;
+            max-width: 900px;
         }
-        .platform {
-            flex: 1; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            gap: 1rem; padding: 2.8rem 1rem;
+
+        .instagram-placeholder {
+            width: 100%;
+            border: 1px dashed rgba(196,168,152,0.2);
+            padding: 4rem 1.5rem;
+            color: rgba(196,168,152,0.3);
+            font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+        }
+
+        .instagram-cta {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            padding: 0.9rem 2rem;
+            border: 1px solid rgba(196,168,152,0.3);
+            color: rgba(250,244,240,0.7);
+            font-size: 0.7rem; font-weight: 400;
+            letter-spacing: 0.2em; text-transform: uppercase;
             text-decoration: none;
-            color: rgba(250,244,240,0.75);
-            border-right: 1px solid rgba(196,168,152,0.2);
-            transition: background 0.35s, color 0.35s;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
         }
-        .platform:last-child { border-right: none; }
-        .platform:hover { background: rgba(237,213,200,0.06); color: var(--blush); }
-        .platform svg { width: 22px; height: 22px; flex-shrink: 0; }
-        .platform-name { font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; }
+        .instagram-cta:hover {
+            background: rgba(237,213,200,0.06);
+            border-color: rgba(196,168,152,0.55);
+            color: var(--blush);
+        }
+        .instagram-cta svg { width: 17px; height: 17px; flex-shrink: 0; }
 
         /* ─── CONTACT ──────────────────────────────────────────── */
         .contact { background: var(--blush); text-align: center; }
@@ -457,22 +506,21 @@
         .contact .body-text { max-width: 450px; text-align: center; }
 
         .contact-email {
-            display: inline-block; margin-top: 3rem;
+            display: inline-block; margin-top: 2.5rem;
             font-family: 'Cormorant Garamond', serif;
-            font-style: italic; font-size: 1.4rem; font-weight: 400;
+            font-style: italic; font-size: 1.2rem; font-weight: 400;
             color: var(--charcoal); text-decoration: none;
             border-bottom: 1px solid rgba(42,32,32,0.28); padding-bottom: 4px;
             transition: color 0.3s, border-color 0.3s;
+            word-break: break-all;
         }
         .contact-email:hover { color: #6B3830; border-color: #6B3830; }
-
-        .contact-grape { margin-top: 4rem; width: 70px; opacity: 0.18; }
 
         /* ─── FOOTER ───────────────────────────────────────────── */
         .footer {
             background: var(--warm-dark);
             color: rgba(196,168,152,0.5);
-            text-align: center; padding: 2rem;
+            text-align: center; padding: 1.5rem;
             font-size: 0.68rem; letter-spacing: 0.14em;
         }
 
@@ -482,8 +530,8 @@
             background: rgba(26,16,16,0.7);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            display: flex; align-items: center; justify-content: center;
-            padding: 2rem;
+            display: flex; align-items: flex-end; justify-content: center;
+            padding: 0;
             opacity: 0; pointer-events: none;
             transition: opacity 0.35s ease;
         }
@@ -491,19 +539,18 @@
 
         .modal {
             background: var(--cream);
-            max-width: 560px; width: 100%;
-            max-height: 90vh; overflow-y: auto;
-            padding: 3.5rem;
+            max-width: 100%; width: 100%;
+            max-height: 92vh; overflow-y: auto;
+            padding: 2.5rem 1.5rem;
             position: relative;
-            transform: translateY(24px) scale(0.98);
+            transform: translateY(100%);
             transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+            border-radius: 16px 16px 0 0;
         }
-        .modal-overlay.open .modal {
-            transform: translateY(0) scale(1);
-        }
+        .modal-overlay.open .modal { transform: translateY(0); }
 
         .modal-close {
-            position: absolute; top: 1.4rem; right: 1.4rem;
+            position: absolute; top: 1.2rem; right: 1.2rem;
             background: none; border: none; cursor: pointer;
             color: var(--taupe); padding: 0.3rem;
             transition: color 0.25s;
@@ -514,22 +561,20 @@
 
         .modal-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem; font-weight: 300; line-height: 1;
-            color: rgba(196,168,152,0.35); margin-bottom: 0.6rem;
+            font-size: 2.5rem; font-weight: 300; line-height: 1;
+            color: rgba(196,168,152,0.35); margin-bottom: 0.5rem;
         }
         .modal-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem; font-weight: 500;
-            color: var(--charcoal); margin-bottom: 1.5rem; line-height: 1.2;
+            font-size: 1.7rem; font-weight: 500;
+            color: var(--charcoal); margin-bottom: 1.2rem; line-height: 1.2;
         }
         .modal-rule {
-            width: 40px; height: 1px; background: var(--taupe); margin-bottom: 1.8rem;
+            width: 40px; height: 1px; background: var(--taupe); margin-bottom: 1.5rem;
         }
-        .modal-body { font-size: 0.94rem; line-height: 1.9; color: var(--body-text); margin-bottom: 1.8rem; }
+        .modal-body { font-size: 0.93rem; line-height: 1.9; color: var(--body-text); margin-bottom: 1.4rem; }
 
-        .modal-details {
-            list-style: none; margin-bottom: 2.5rem;
-        }
+        .modal-details { list-style: none; margin-bottom: 2rem; }
         .modal-details li {
             display: flex; align-items: baseline; gap: 0.8rem;
             font-size: 0.88rem; line-height: 1.7; color: var(--body-text);
@@ -544,17 +589,17 @@
 
         .modal-btn {
             display: inline-block; margin-top: 0.5rem;
-            padding: 0.95rem 2.4rem;
+            padding: 0.9rem 2rem;
             background: var(--charcoal); color: var(--cream);
             font-size: 0.72rem; font-weight: 400;
             letter-spacing: 0.2em; text-transform: uppercase;
             text-decoration: none;
-            transition: background 0.3s, color 0.3s;
+            transition: background 0.3s;
         }
         .modal-btn:hover { background: #3D2A28; }
 
         /* ─── FADE-IN ──────────────────────────────────────────── */
-        .fi { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+        .fi { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .fi.d1 { transition-delay: 0.1s; }
         .fi.d2 { transition-delay: 0.2s; }
         .fi.d3 { transition-delay: 0.32s; }
@@ -567,42 +612,57 @@
         }
         @keyframes breathe {
             0%, 100% { opacity: 1; }
-            50%       { opacity: 0.25; }
+            50%       { opacity: 0.3; }
+        }
+        @keyframes scrollDown {
+            0%   { transform: translateY(-100%); }
+            100% { transform: translateY(250%); }
         }
 
-        /* ─── RESPONSIVE ───────────────────────────────────────── */
-        @media (max-width: 820px) {
-            .nav { padding: 1.2rem 1.5rem; }
-            .nav-links { display: none; }
-            .nav-hamburger { display: flex; }
-            .mobile-menu { display: flex; }
-            .section { padding: 5.5rem 1.5rem; }
-            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-            .about-visual { display: none; }
-            .offer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-            .offer-body {
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+        /* ─── DESKTOP ──────────────────────────────────────────── */
+        @media (min-width: 820px) {
+            .nav { padding: 1.6rem 3.5rem; }
+            .nav-brand img { height: 44px; }
+            .nav-links { display: flex; gap: 2.5rem; }
+            .nav-hamburger { display: none; }
+            .mobile-menu { display: none !important; }
+
+            .section { padding: 8rem 2rem; }
+
+            .hero { padding: 8rem 2rem 5rem; }
+            .hero-logo { width: min(260px, 62vw); margin-bottom: 2.8rem; }
+            .scroll-hint-bar { height: 44px; }
+
+            .about-grid { grid-template-columns: 1.2fr 0.8fr; gap: 6rem; }
+            .about-visual {
+                display: flex; justify-content: center;
+                align-items: center; position: relative;
+                min-height: 320px;
             }
-            .gallery-grid {
-                display: flex;
-                gap: 0;
-                transition: transform 0.55s cubic-bezier(.25,.46,.45,.94);
-                will-change: transform;
+            .about-full { display: block; }
+            .about-more { display: none; }
+
+            .offer-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 4.5rem; }
+            .offer-num { font-size: 3.5rem; }
+            .offer-title { font-size: 1.55rem; }
+            .offer-body { display: block; overflow: visible; -webkit-line-clamp: unset; }
+
+            .collab-grid { grid-template-columns: 1.15fr 0.85fr; gap: 5rem; }
+            .collab-aside { padding-top: 5.5rem; }
+            .collab-aside-intro { font-size: 1.28rem; }
+            .collab-email { font-size: 1.3rem; word-break: normal; }
+
+            .contact-email { font-size: 1.4rem; word-break: normal; }
+
+            .modal-overlay { align-items: center; padding: 2rem; }
+            .modal {
+                max-width: 560px; border-radius: 0;
+                padding: 3.5rem;
+                transform: translateY(24px) scale(0.98);
             }
-            .gallery-item {
-                flex: 0 0 100% !important;
-                height: 300px;
-                grid-row: span 1 !important;
-            }
-            .carousel-dots { display: flex; }
-            .carousel-btn  { display: flex; }
-            .platforms { flex-direction: column; max-width: 260px; }
-            .platform { border-right: none; border-bottom: 1px solid rgba(196,168,152,0.2); padding: 2rem 1.5rem; flex-direction: row; gap: 1.2rem; justify-content: center; }
-            .platform:last-child { border-bottom: none; }
-            .modal { padding: 2.5rem 1.8rem; }
+            .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+            .modal-title { font-size: 2rem; }
+            .modal-num { font-size: 3rem; }
         }
 
     </style>
@@ -616,9 +676,9 @@
     </a>
     <div class="nav-links">
         <a href="#about">About</a>
-        <a href="#offer">Evenings</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#social">Follow</a>
+        <a href="#offer">What We Do</a>
+        <a href="#collab">Work With Us</a>
+        <a href="#instagram">Instagram</a>
         <a href="#contact">Contact</a>
     </div>
     <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()">
@@ -630,50 +690,17 @@
 
 <!-- ── MOBILE MENU OVERLAY ─────────────────────────────────── -->
 <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation menu">
-    <a href="#about"   onclick="closeMenu()">About</a>
-    <a href="#offer"   onclick="closeMenu()">Evenings</a>
-    <a href="#gallery" onclick="closeMenu()">Gallery</a>
-    <a href="#social"  onclick="closeMenu()">Follow</a>
-    <a href="#contact" onclick="closeMenu()">Contact</a>
+    <a href="#about"     onclick="closeMenu()">About</a>
+    <a href="#offer"     onclick="closeMenu()">What We Do</a>
+    <a href="#collab"    onclick="closeMenu()">Work With Us</a>
+    <a href="#instagram" onclick="closeMenu()">Instagram</a>
+    <a href="#contact"   onclick="closeMenu()">Contact</a>
     <div class="mobile-menu-rule"></div>
     <span class="mobile-menu-brand">Uncorked Duo</span>
 </div>
 
 <!-- ── HERO ───────────────────────────────────────────────── -->
 <section class="hero" id="home">
-
-    <svg class="deco deco-tl" viewBox="0 0 200 240" fill="none" aria-hidden="true">
-        <path d="M100 58 C100 42 93 28 80 15" stroke="#2A2020" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M94 40 C78 28 56 36 52 54 C68 46 84 48 94 40Z" stroke="#2A2020" stroke-width="1"/>
-        <path d="M94 40 C78 44 64 49 52 54" stroke="#2A2020" stroke-width="0.55"/>
-        <path d="M98 33 C110 24 122 28 124 40" stroke="#2A2020" stroke-width="0.8" stroke-linecap="round"/>
-        <circle cx="100" cy="70"  r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="86"  cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="114" cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="72"  cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="100" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="128" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="86"  cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="114" cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="100" cy="166" r="12" stroke="#2A2020" stroke-width="1"/>
-    </svg>
-
-    <svg class="deco deco-br" viewBox="0 0 200 240" fill="none" aria-hidden="true">
-        <path d="M100 58 C100 42 93 28 80 15" stroke="#2A2020" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M94 40 C78 28 56 36 52 54 C68 46 84 48 94 40Z" stroke="#2A2020" stroke-width="1"/>
-        <path d="M94 40 C78 44 64 49 52 54" stroke="#2A2020" stroke-width="0.55"/>
-        <path d="M98 33 C110 24 122 28 124 40" stroke="#2A2020" stroke-width="0.8" stroke-linecap="round"/>
-        <circle cx="100" cy="70"  r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="86"  cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="114" cy="94"  r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="72"  cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="100" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="128" cy="118" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="86"  cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="114" cy="142" r="12" stroke="#2A2020" stroke-width="1"/>
-        <circle cx="100" cy="166" r="12" stroke="#2A2020" stroke-width="1"/>
-    </svg>
-
     <img src="Uncorked Duo.png" alt="Uncorked Duo" class="hero-logo">
     <p class="hero-eyebrow">Wine Knowledge &amp; Tasting</p>
     <p class="hero-tagline">Discovering the world of wine,<br>one beautiful glass at a time</p>
@@ -694,75 +721,103 @@
                 <span class="label fi">Who We Are</span>
                 <h2 class="title fi d1">Twin sisters,<br>one <em>love of wine</em></h2>
                 <p class="body-text fi d2">
-                    We're identical twins who discovered early on that we shared more than
-                    just a face — we share a deep, unstoppable passion for wine. Together
-                    we've made it our mission to bring that love to everyone around us:
-                    making the world of wine feel warm, welcoming, and genuinely exciting.
+                    We're Uncorked Duo – two sisters exploring the wine world one glass
+                    (read: bottle) at a time. Our interest in wine started early, through
+                    travel with our family. From visiting vineyards to experiencing different
+                    food cultures and local wines, we were introduced to the idea that wine
+                    is about much more than what's in the glass.
                 </p>
-                <p class="body-text fi d3" style="margin-top:1.1rem">
-                    Whether you're curious about your first Burgundy or looking to deepen
-                    what you already know, we're here to guide the journey. From the
-                    rolling vineyards of Bordeaux to the sun-drenched slopes of Sicily,
-                    we share stories, tasting notes, and the sheer joy of discovery —
-                    one glass at a time.
+                <p class="body-text about-full fi d3" style="margin-top:1.1rem">
+                    Since then, we've carried on that tradition in our own way – travelling
+                    to wine regions, attending tastings, and visiting wine festivals around
+                    the world. Along the way, we've developed a deeper appreciation not just
+                    for wine itself, but for the stories, people, and cultures behind it.
+                    For us, wine isn't just a drink or a hobby. It's a way of understanding
+                    a place, a moment, and a shared experience.
                 </p>
+
+                <p class="body-text about-full fi d3" style="margin-top:1.1rem">
+                    We use our platform to document what we're learning – from wine education
+                    and tastings to travel, events, and unexpected pairings. More recently,
+                    we've started hosting our own tastings, creating relaxed and engaging
+                    spaces for others to explore wine in a way that feels accessible and
+                    enjoyable. From France, Italy, and Spain to Turkey, Japan, and beyond,
+                    we share stories, tasting notes, and the sheer joy of discovery, one
+                    bottle at a time.
+                </p>
+
+                <button class="about-more fi d3" onclick="openModal('modal-about')">Read more →</button>
+
+                <span class="quals-label fi">Qualifications</span>
+                <div class="quals fi">
+                    <div class="qual">
+                        <span class="qual-name">WSET Level 2 (Distinction)</span>
+                        <span class="qual-school">WSET School London</span>
+                    </div>
+                    <div class="qual">
+                        <span class="qual-name">Rioja Enthusiast</span>
+                        <span class="qual-school">Rioja Wine Academy</span>
+                    </div>
+                    <div class="qual">
+                        <span class="qual-name">WSET Level 3</span>
+                        <span class="qual-school">WSET School London<span class="qual-progress">In progress</span></span>
+                    </div>
+                    <div class="qual">
+                        <span class="qual-name">Port Essentials</span>
+                        <span class="qual-school">School of Port<span class="qual-progress">In progress</span></span>
+                    </div>
+                </div>
             </div>
             <div class="about-visual fi d2" aria-hidden="true">
                 <div class="ring ring-lg"></div>
                 <div class="ring ring-sm"></div>
-                <svg class="about-grape" viewBox="0 0 160 210" fill="none">
-                    <path d="M80 44 C80 30 73 18 62 8" stroke="#2A2020" stroke-width="1.2" stroke-linecap="round"/>
-                    <path d="M76 28 C60 18 40 24 38 40 C52 34 70 36 76 28Z" stroke="#2A2020" stroke-width="1" fill="none"/>
-                    <path d="M76 28 C60 32 48 36 38 40" stroke="#2A2020" stroke-width="0.6"/>
-                    <path d="M79 22 C90 14 104 16 106 28 C96 26 83 26 79 22Z" stroke="#2A2020" stroke-width="1" fill="none"/>
-                    <circle cx="80"  cy="56"  r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="66"  cy="80"  r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="94"  cy="80"  r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="52"  cy="104" r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="80"  cy="104" r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="108" cy="104" r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="66"  cy="128" r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="94"  cy="128" r="12" stroke="#2A2020" stroke-width="1.2"/>
-                    <circle cx="80"  cy="152" r="12" stroke="#2A2020" stroke-width="1.2"/>
-                </svg>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ── OFFER ───────────────────────────────────────────────── -->
+<!-- ── WHAT WE DO ──────────────────────────────────────────── -->
 <section class="section offer" id="offer">
     <div class="container">
         <span class="label fi">What We Do</span>
-        <h2 class="title fi d1">Crafted experiences<br>for <em>every palate</em></h2>
+        <h2 class="title fi d1">Wine, travel &amp;<br><em>education</em></h2>
         <div class="offer-grid">
+
+            <div class="offer-card fi"
+                 role="button" tabindex="0"
+                 onclick="openModal('modal-travel')"
+                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-travel')">
+                <div class="offer-num">01</div>
+                <h3 class="offer-title">Wine Travel &amp; Tourism</h3>
+                <p class="offer-body">
+                    We explore wine regions, vineyards, and festivals around the world,
+                    sharing the stories, people, and cultures behind the wines.
+                </p>
+                <span class="offer-more">Find out more →</span>
+            </div>
 
             <div class="offer-card fi d1"
                  role="button" tabindex="0"
-                 onclick="openModal('modal-tastings')"
-                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-tastings')">
-                <div class="offer-num">01</div>
-                <h3 class="offer-title">Wine Tasting Evenings</h3>
+                 onclick="openModal('modal-education')"
+                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-education')">
+                <div class="offer-num">02</div>
+                <h3 class="offer-title">Wine Education</h3>
                 <p class="offer-body">
-                    Intimate evenings designed to awaken your senses. Explore curated
-                    selections of wines from across the globe in a relaxed, convivial
-                    setting — perfect for groups of friends, special occasions, or
-                    simply discovering something entirely new.
+                    We break down wine in a way that is clear, engaging, and approachable –
+                    covering regions, grape varieties, styles, and pairings without jargon.
                 </p>
                 <span class="offer-more">Find out more →</span>
             </div>
 
             <div class="offer-card fi d2"
                  role="button" tabindex="0"
-                 onclick="openModal('modal-education')"
-                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-education')">
-                <div class="offer-num">02</div>
-                <h3 class="offer-title">Wine Knowledge &amp; Education</h3>
+                 onclick="openModal('modal-tastings')"
+                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-tastings')">
+                <div class="offer-num">03</div>
+                <h3 class="offer-title">Wine Tastings</h3>
                 <p class="offer-body">
-                    Follow along as we demystify the world of wine — from grape
-                    varieties and celebrated regions to food pairings and tasting
-                    technique. Our content turns every scroll into a wine lesson
-                    you'll actually enjoy.
+                    We host relaxed, interactive wine tastings designed to make wine more
+                    accessible and enjoyable – from themed evenings to private events.
                 </p>
                 <span class="offer-more">Find out more →</span>
             </div>
@@ -771,84 +826,118 @@
     </div>
 </section>
 
-<!-- ── GALLERY ─────────────────────────────────────────────── -->
-<section class="section gallery" id="gallery">
+<!-- ── WORK WITH US ────────────────────────────────────────── -->
+<section class="section collab" id="collab">
     <div class="container">
-        <span class="label fi">Moments</span>
-        <h2 class="title fi d1">An evening with<br><em>Uncorked Duo</em></h2>
+        <span class="label fi">Work With Us</span>
+        <h2 class="title fi d1">Let's build something<br><em>together</em></h2>
+        <div class="collab-grid">
+            <div>
+                <p class="body-text fi d2">
+                    We're Uncorked Duo – two sisters building a platform around wine,
+                    travel, and tastings, with a background in hospitality, communications,
+                    and events, and WSET Level 2 (Distinction).
+                </p>
+                <p class="body-text fi d3" style="margin-top:1rem">
+                    We're currently growing our presence in the wine space and are keen to
+                    collaborate with brands, venues, and organisations on thoughtful,
+                    engaging content and experiences.
+                </p>
 
-        <div class="gallery-wrapper"><div class="gallery-grid">
+                <ul class="collab-list fi">
+                    <li>
+                        <div>
+                            <span class="collab-list-title">Content creation</span>
+                            Story-driven content across Instagram and digital platforms –
+                            from tastings and wine pairings to travel and behind-the-scenes moments.
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="collab-list-title">Wine tastings &amp; events</span>
+                            We host and are developing our own tastings, as well as supporting
+                            events and activations with an engaging, approachable perspective on wine.
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="collab-list-title">Wine travel &amp; destination features</span>
+                            We document wine regions, vineyards, and wine-themed festivals, focusing
+                            on both the wines and the wider cultural experience.
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="collab-list-title">Collaborations &amp; partnerships</span>
+                            We're open to working with wine brands, restaurants, PR agencies, and
+                            tourism boards on tailored collaborations – from product features to
+                            longer-term partnerships.
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="collab-list-title">Cultural &amp; language insights</span>
+                            Between us, we speak English, Swedish, Russian, Korean, Spanish, and
+                            French – connecting wines and people from all around the world.
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
-            <!-- Tall slot 1 — portrait photo works best here -->
-            <figure class="gallery-item fi">
-                <img src="chelsea-pridham-Pj1JHHRqD3c-unsplash.jpg"
-                     alt="Cheese board and wine glasses with a vineyard in the background">
-            </figure>
-
-            <figure class="gallery-item fi d1">
-                <img src="julie-sd-fDTv0BqaiFw-unsplash.jpg"
-                     alt="Red, rosé and white wine glasses lined up at a tasting">
-            </figure>
-
-            <figure class="gallery-item fi d2">
-                <img src="maksym-kaharlytskyi-3uJt73tr4hI-unsplash.jpg"
-                     alt="Four tasting glasses arranged on a wooden wine barrel">
-            </figure>
-
-            <figure class="gallery-item fi d1">
-                <img src="kelsey-chance-tAH2cA_BL5g-unsplash.jpg"
-                     alt="Friends laughing and clinking wine glasses together">
-            </figure>
-
-            <!-- Tall slot 2 — portrait photo works best here -->
-            <figure class="gallery-item fi d2">
-                <img src="alexandra-marta-0D8pkOhd5_8-unsplash.jpg"
-                     alt="Elegant wine glasses and canapés laid out for a tasting evening">
-            </figure>
-
-            <figure class="gallery-item fi d3">
-                <img src="julie-sd-LwP0dUVzZWg-unsplash.jpg"
-                     alt="A wine tasting evening with glasses and bottles on the table">
-            </figure>
-
-            <figure class="gallery-item fi d1">
-                <img src="monica-hudec-eZMcUy7gATs-unsplash.jpg"
-                     alt="A woman enjoying red and white wine at a tasting">
-            </figure>
-
-        </div></div><!-- end gallery-wrapper -->
+            <div class="collab-aside fi d2">
+                <p class="collab-aside-intro">
+                    Our approach is simple: make wine feel accessible, engaging, and relevant –
+                    combining education with real-world experiences.
+                </p>
+                <p class="body-text" style="margin-bottom:2rem">
+                    We're at an early stage, but building something long-term in the wine space,
+                    and we're excited to partner with people and brands along the way.
+                </p>
+                <div class="collab-meta">
+                    <span class="collab-meta-item">London-based, available for travel</span>
+                </div>
+                <a href="mailto:uncorkedduowine@gmail.com" class="collab-email">
+                    uncorkedduowine@gmail.com
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- ── SOCIAL ──────────────────────────────────────────────── -->
-<section class="section social" id="social">
+<!-- ── INSTAGRAM ───────────────────────────────────────────── -->
+<section class="section instagram" id="instagram">
     <div class="container">
-        <span class="label fi">Find Us Online</span>
-        <h2 class="title fi d1">Follow the <em>journey</em></h2>
-        <p class="social-sub fi d2">Wine tips, tasting notes &amp; a little adventure</p>
+        <span class="label fi">On Instagram</span>
+        <h2 class="title fi d1">Follow our <em>journey</em></h2>
+        <p class="instagram-handle fi d2">@uncorked_duo</p>
 
-        <div class="platforms fi d3">
-            <a href="#" class="platform" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="5"/>
-                    <circle cx="12" cy="12" r="4"/>
-                    <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
-                </svg>
-                <span class="platform-name">Instagram</span>
-            </a>
-            <a href="#" class="platform" aria-label="TikTok">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.25 8.25 0 0 0 4.83 1.55V6.79a4.85 4.85 0 0 1-1.06-.1z"/>
-                </svg>
-                <span class="platform-name">TikTok</span>
-            </a>
-            <a href="#" class="platform" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                </svg>
-                <span class="platform-name">Facebook</span>
-            </a>
+        <div class="instagram-feed-wrapper fi d3">
+            <!--
+                ─── INSTAGRAM FEED WIDGET ───────────────────────────────────────────
+                To embed a live Instagram feed here, sign up at lightwidget.com (free
+                tier available), connect your @uncorked_duo account, copy the embed
+                code, and replace this placeholder block with it.
+
+                Example LightWidget embed:
+                <script src="//cdn.lightwidget.com/widgets/lightwidget.js"></script>
+                <iframe src="//lightwidget.com/widgets/YOUR-WIDGET-ID.html"
+                        scrolling="no" allowtransparency="true" class="lightwidget-widget"
+                        style="width:100%;border:0;overflow:hidden;"></iframe>
+                ─────────────────────────────────────────────────────────────────────
+            -->
+            <div class="instagram-placeholder">Instagram feed coming soon</div>
         </div>
+
+        <a href="https://www.instagram.com/uncorked_duo"
+           class="instagram-cta fi d3"
+           target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
+            </svg>
+            Follow @uncorked_duo
+        </a>
     </div>
 </section>
 
@@ -861,17 +950,9 @@
             Have a question about our events, want to book a tasting evening,
             or simply want to talk wine? We'd love to hear from you.
         </p>
-        <a href="mailto:hello@uncorkedduo.com" class="contact-email fi d3">
-            hello@uncorkedduo.com
+        <a href="mailto:uncorkedduowine@gmail.com" class="contact-email fi d3">
+            uncorkedduowine@gmail.com
         </a>
-        <svg class="contact-grape fi" viewBox="0 0 80 100" fill="none" aria-hidden="true">
-            <path d="M40 26 C40 16 35 8 28 2" stroke="#2A2020" stroke-width="1" stroke-linecap="round"/>
-            <path d="M38 14 C30 8 20 12 18 22 C25 18 34 19 38 14Z" stroke="#2A2020" stroke-width="0.9" fill="none"/>
-            <circle cx="40" cy="38" r="10" stroke="#2A2020" stroke-width="1"/>
-            <circle cx="28" cy="56" r="10" stroke="#2A2020" stroke-width="1"/>
-            <circle cx="52" cy="56" r="10" stroke="#2A2020" stroke-width="1"/>
-            <circle cx="40" cy="74" r="10" stroke="#2A2020" stroke-width="1"/>
-        </svg>
     </div>
 </section>
 
@@ -882,7 +963,112 @@
 
 <!-- ══ MODALS ══════════════════════════════════════════════════ -->
 
-<!-- Modal: Wine Tasting Evenings -->
+<!-- Modal: About Us -->
+<div class="modal-overlay" id="modal-about" role="dialog" aria-modal="true" aria-labelledby="modal-about-title">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('modal-about')" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <span class="label" style="margin-bottom:0.6rem">Who We Are</span>
+        <h2 class="modal-title" id="modal-about-title">Twin sisters,<br>one <em>love of wine</em></h2>
+        <div class="modal-rule"></div>
+        <p class="modal-body">
+            We're Uncorked Duo – two sisters exploring the wine world one glass
+            (read: bottle) at a time. Our interest in wine started early, through
+            travel with our family. From visiting vineyards to experiencing different
+            food cultures and local wines, we were introduced to the idea that wine
+            is about much more than what's in the glass.
+        </p>
+        <p class="modal-body">
+            Since then, we've carried on that tradition in our own way – travelling
+            to wine regions, attending tastings, and visiting wine festivals around
+            the world. Along the way, we've developed a deeper appreciation not just
+            for wine itself, but for the stories, people, and cultures behind it.
+            For us, wine isn't just a drink or a hobby. It's a way of understanding
+            a place, a moment, and a shared experience.
+        </p>
+        <p class="modal-body">
+            We use our platform to document what we're learning – from wine education
+            and tastings to travel, events, and unexpected pairings. More recently,
+            we've started hosting our own tastings, creating relaxed and engaging
+            spaces for others to explore wine in a way that feels accessible and
+            enjoyable. From France, Italy, and Spain to Turkey, Japan, and beyond,
+            we share stories, tasting notes, and the sheer joy of discovery, one
+            bottle at a time.
+        </p>
+    </div>
+</div>
+
+<!-- Modal: Wine Travel & Tourism -->
+<div class="modal-overlay" id="modal-travel" role="dialog" aria-modal="true" aria-labelledby="modal-travel-title">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('modal-travel')" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="modal-num">01</div>
+        <h2 class="modal-title" id="modal-travel-title">Wine Travel &amp; Tourism</h2>
+        <div class="modal-rule"></div>
+        <p class="modal-body">
+            We explore wine regions, vineyards, and festivals around the world, sharing the
+            stories, people, and cultures behind the wines. From established regions to
+            lesser-known destinations, we focus on experiences that bring wine to life.
+        </p>
+        <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
+            Wine travel, for us, is about far more than what's in the glass — it's about
+            understanding a place, its people, and the history behind every bottle.
+        </p>
+        <ul class="modal-details">
+            <li>Visits to vineyards, estates, and wine-producing regions</li>
+            <li>Wine festivals and cultural experiences worldwide</li>
+            <li>Tasting notes and destination guides</li>
+            <li>From France, Italy, and Spain to Turkey, Japan, and beyond</li>
+            <li>Stories that connect wine, travel, and culture</li>
+        </ul>
+        <a href="mailto:uncorkedduowine@gmail.com?subject=Enquiry%20%E2%80%94%20Wine%20Travel" class="modal-btn">
+            Get In Touch
+        </a>
+    </div>
+</div>
+
+<!-- Modal: Wine Education -->
+<div class="modal-overlay" id="modal-education" role="dialog" aria-modal="true" aria-labelledby="modal-education-title">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('modal-education')" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="modal-num">02</div>
+        <h2 class="modal-title" id="modal-education-title">Wine Education</h2>
+        <div class="modal-rule"></div>
+        <p class="modal-body">
+            We break down wine in a way that is clear, engaging, and approachable. With a
+            WSET Level 2 qualification (Distinction) and Level 3 in progress, we share what
+            we're learning through content that helps make sense of regions, grape varieties,
+            styles, and pairings — without unnecessary jargon.
+        </p>
+        <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
+            Want us to bring our education in person? We'd love to hear about
+            what you have in mind — from corporate team events to private masterclasses.
+        </p>
+        <ul class="modal-details">
+            <li>Wine regions, grape varieties &amp; tasting notes demystified</li>
+            <li>Food &amp; wine pairing guides</li>
+            <li>Regular content on Instagram</li>
+            <li>Private &amp; corporate masterclasses available on request</li>
+            <li>No prior wine knowledge needed</li>
+        </ul>
+        <a href="mailto:uncorkedduowine@gmail.com?subject=Enquiry%20%E2%80%94%20Wine%20Education" class="modal-btn">
+            Get In Touch
+        </a>
+    </div>
+</div>
+
+<!-- Modal: Wine Tastings -->
 <div class="modal-overlay" id="modal-tastings" role="dialog" aria-modal="true" aria-labelledby="modal-tastings-title">
     <div class="modal">
         <button class="modal-close" onclick="closeModal('modal-tastings')" aria-label="Close">
@@ -890,14 +1076,14 @@
                 <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
         </button>
-        <div class="modal-num">01</div>
-        <h2 class="modal-title" id="modal-tastings-title">Wine Tasting Evenings</h2>
+        <div class="modal-num">03</div>
+        <h2 class="modal-title" id="modal-tastings-title">Wine Tastings</h2>
         <div class="modal-rule"></div>
         <p class="modal-body">
-            Our tasting evenings are crafted to be as much about atmosphere as they
-            are about wine. Guided warmly by the two of us, each evening takes you on
-            a journey through carefully chosen bottles — telling the story behind every
-            glass, from the vineyard to your table.
+            We host relaxed, interactive wine tastings designed to make wine more accessible
+            and enjoyable. Whether it's themed tastings, food and wine pairings, or private
+            events, our focus is on creating engaging experiences that encourage curiosity
+            and discovery.
         </p>
         <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
             Whether you're celebrating a birthday, planning a unique date night, or
@@ -911,129 +1097,20 @@
             <li>Perfect for celebrations, hen parties &amp; private events</li>
             <li>Suitable for all levels — beginners very welcome</li>
         </ul>
-        <a href="mailto:hello@uncorkedduo.com?subject=Booking%20Enquiry%20%E2%80%94%20Wine%20Tasting%20Evening" class="modal-btn">
+        <a href="mailto:uncorkedduowine@gmail.com?subject=Booking%20Enquiry%20%E2%80%94%20Wine%20Tasting%20Evening" class="modal-btn">
             Book an Evening
-        </a>
-    </div>
-</div>
-
-<!-- Modal: Wine Knowledge & Education -->
-<div class="modal-overlay" id="modal-education" role="dialog" aria-modal="true" aria-labelledby="modal-education-title">
-    <div class="modal">
-        <button class="modal-close" onclick="closeModal('modal-education')" aria-label="Close">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                <path d="M18 6L6 18M6 6l12 12"/>
-            </svg>
-        </button>
-        <div class="modal-num">02</div>
-        <h2 class="modal-title" id="modal-education-title">Wine Knowledge &amp; Education</h2>
-        <div class="modal-rule"></div>
-        <p class="modal-body">
-            Wine can feel intimidating — all those regions, grapes, and vintages. But
-            it doesn't have to be. We share our knowledge in a way that's genuine,
-            approachable, and actually fun to absorb. Follow us across our social
-            channels for regular tips, tastings, and discoveries.
-        </p>
-        <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
-            Want us to bring our education in person? We'd love to hear about
-            what you have in mind — from corporate team events to private masterclasses.
-        </p>
-        <ul class="modal-details">
-            <li>Wine regions, grape varieties &amp; tasting notes demystified</li>
-            <li>Food &amp; wine pairing guides</li>
-            <li>Regular content across Instagram, TikTok &amp; Facebook</li>
-            <li>Private &amp; corporate masterclasses available on request</li>
-            <li>No prior wine knowledge needed</li>
-        </ul>
-        <a href="mailto:hello@uncorkedduo.com?subject=Enquiry%20%E2%80%94%20Wine%20Education" class="modal-btn">
-            Get In Touch
         </a>
     </div>
 </div>
 
 <script>
     // ── Nav background on scroll ───────────────────────────────
-    const nav  = document.querySelector('.nav');
-    const hero = document.getElementById('home');
+    const nav = document.querySelector('.nav');
     function updateNav() {
         nav.classList.toggle('scrolled', window.scrollY > 10);
     }
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();
-
-    // ── Gallery carousel (mobile only) ────────────────────────
-    (function () {
-        if (window.innerWidth > 820) return;
-
-        const grid  = document.querySelector('.gallery-grid');
-        const items = [...grid.children];
-        const count = items.length;
-        let cur = 0, timer;
-
-        // Build prev/next buttons
-        const wrapper = grid.closest('.gallery-wrapper');
-        const chevronSVG = (dir) => {
-            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.setAttribute('viewBox', '0 0 24 24');
-            svg.setAttribute('fill', 'none');
-            svg.setAttribute('stroke', 'currentColor');
-            svg.setAttribute('stroke-width', '1.8');
-            svg.setAttribute('stroke-linecap', 'round');
-            svg.setAttribute('stroke-linejoin', 'round');
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.setAttribute('d', dir === 'prev' ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6');
-            svg.appendChild(path);
-            return svg;
-        };
-        ['prev', 'next'].forEach(dir => {
-            const btn = document.createElement('button');
-            btn.className = `carousel-btn carousel-btn-${dir}`;
-            btn.setAttribute('aria-label', dir === 'prev' ? 'Previous' : 'Next');
-            btn.appendChild(chevronSVG(dir));
-            btn.addEventListener('click', () => { go(cur + (dir === 'next' ? 1 : -1)); resetTimer(); });
-            wrapper.appendChild(btn);
-        });
-
-        // Build dots
-        const dots = document.createElement('div');
-        dots.className = 'carousel-dots';
-        items.forEach((_, i) => {
-            const b = document.createElement('button');
-            b.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-            b.setAttribute('aria-label', 'Slide ' + (i + 1));
-            b.addEventListener('click', () => { go(i); resetTimer(); });
-            dots.appendChild(b);
-        });
-        grid.closest('.gallery-wrapper').insertAdjacentElement('afterend', dots);
-
-        function go(n) {
-            cur = ((n % count) + count) % count;
-            grid.style.transform = `translateX(-${cur * 100}%)`;
-            dots.querySelectorAll('.carousel-dot')
-                .forEach((d, i) => d.classList.toggle('active', i === cur));
-        }
-
-        function resetTimer() {
-            clearInterval(timer);
-            timer = setInterval(() => go(cur + 1), 3500);
-        }
-
-        resetTimer();
-
-        // Touch swipe
-        let x0 = null;
-        grid.addEventListener('touchstart', e => {
-            x0 = e.touches[0].clientX;
-            clearInterval(timer);
-        }, { passive: true });
-        grid.addEventListener('touchend', e => {
-            if (x0 === null) return;
-            const dx = e.changedTouches[0].clientX - x0;
-            if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
-            x0 = null;
-            resetTimer();
-        });
-    })();
 
     // ── Mobile menu ────────────────────────────────────────────
     function toggleMenu() {
