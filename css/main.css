@@ -279,6 +279,9 @@ body {
 /* ─── ABOUT READ MORE ──────────────────────────────────── */
 .about-full { display: none; }
 
+.about-clickable { cursor: pointer; }
+.about-clickable:focus-visible { outline: 2px solid var(--taupe); outline-offset: 6px; border-radius: 2px; }
+
 .about-more {
     display: inline-block;
     margin-top: 1.4rem;
@@ -682,6 +685,7 @@ body {
     }
     .about-full { display: block; }
     .about-more { display: none; }
+    .about-clickable { cursor: auto; pointer-events: none; }
 
     .offer-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 4.5rem; }
     .offer-num { font-size: 3.5rem; }

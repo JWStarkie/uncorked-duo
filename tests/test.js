@@ -156,6 +156,20 @@ test('collab CTA has mailto link', () => {
     assert(html.includes('mailto:uncorkedduowine@gmail.com?subject=Collaboration%20Enquiry'),
         'Collab CTA mailto missing');
 });
+test('about section content column is clickable (about-clickable)', () => {
+    assert(html.includes('class="about-clickable"'), 'about-clickable class missing');
+    assert(html.includes("onclick=\"openModal('modal-about')\""), 'about-clickable onclick missing');
+});
+test('about-clickable has keyboard support', () => {
+    assert(html.includes('onkeydown') && html.includes("openModal('modal-about')"),
+        'about-clickable missing keyboard handler');
+});
+test('css disables about-clickable pointer on desktop', () => {
+    const desktopBlock = css.slice(css.indexOf('@media (min-width: 820px)'));
+    assert(desktopBlock.includes('.about-clickable') && desktopBlock.includes('pointer-events: none'),
+        'Desktop should disable about-clickable pointer-events');
+});
+
 test('collab swipe hint is present', () => {
     assert(html.includes('class="collab-swipe-hint"'), 'Collab swipe hint missing');
 });
