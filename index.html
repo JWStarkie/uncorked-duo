@@ -1,467 +1,650 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uncorked Duo — Wine Knowledge & Tasting</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <script>
-        (() => {
-            const d = document, s = d.createElement("script");
-            s.type = "module";
-            s.src = "https://w.behold.so/widget.js";
-            d.head.append(s);
-        })();
-    </script>
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Uncorked Duo — Wine Knowledge & Tasting</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="css/main.css" />
+		<script>
+			;(() => {
+				const d = document,
+					s = d.createElement('script')
+				s.type = 'module'
+				s.src = 'https://w.behold.so/widget.js'
+				d.head.append(s)
+			})()
+		</script>
+	</head>
+	<body>
+		<!-- ── NAVIGATION ─────────────────────────────────────────── -->
+		<nav class="nav">
+			<a href="#home" class="nav-brand" onclick="closeMenu()">
+				<img src="Uncorked Duo.png" alt="Uncorked Duo" />
+			</a>
+			<div class="nav-links">
+				<a href="#about">About</a>
+				<a href="#offer">What We Do</a>
+				<a href="#collab">Work With Us</a>
+				<a href="#instagram">Instagram</a>
+				<a href="#contact">Contact</a>
+			</div>
+			<button
+				class="nav-hamburger"
+				aria-label="Open menu"
+				aria-expanded="false"
+				onclick="toggleMenu()"
+			>
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</nav>
 
-<!-- ── NAVIGATION ─────────────────────────────────────────── -->
-<nav class="nav">
-    <a href="#home" class="nav-brand" onclick="closeMenu()">
-        <img src="Uncorked Duo.png" alt="Uncorked Duo">
-    </a>
-    <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#offer">What We Do</a>
-        <a href="#collab">Work With Us</a>
-        <a href="#instagram">Instagram</a>
-        <a href="#contact">Contact</a>
-    </div>
-    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-</nav>
+		<!-- ── MOBILE MENU OVERLAY ─────────────────────────────────── -->
+		<div
+			class="mobile-menu"
+			id="mobile-menu"
+			role="dialog"
+			aria-label="Navigation menu"
+		>
+			<a href="#about" onclick="closeMenu()">About</a>
+			<a href="#offer" onclick="closeMenu()">What We Do</a>
+			<a href="#collab" onclick="closeMenu()">Work With Us</a>
+			<a href="#instagram" onclick="closeMenu()">Instagram</a>
+			<a href="#contact" onclick="closeMenu()">Contact</a>
+			<div class="mobile-menu-rule"></div>
+			<span class="mobile-menu-brand">Uncorked Duo</span>
+		</div>
 
-<!-- ── MOBILE MENU OVERLAY ─────────────────────────────────── -->
-<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation menu">
-    <a href="#about"     onclick="closeMenu()">About</a>
-    <a href="#offer"     onclick="closeMenu()">What We Do</a>
-    <a href="#collab"    onclick="closeMenu()">Work With Us</a>
-    <a href="#instagram" onclick="closeMenu()">Instagram</a>
-    <a href="#contact"   onclick="closeMenu()">Contact</a>
-    <div class="mobile-menu-rule"></div>
-    <span class="mobile-menu-brand">Uncorked Duo</span>
-</div>
+		<!-- ── HERO ───────────────────────────────────────────────── -->
+		<section class="hero" id="home">
+			<img src="Uncorked Duo.png" alt="Uncorked Duo" class="hero-logo" />
+			<p class="hero-eyebrow">Wine Knowledge &amp; Tasting</p>
+			<p class="hero-tagline">
+				Discovering the world of wine,<br />one beautiful glass at a time
+			</p>
+			<div class="hero-rule"></div>
+			<a href="#about" class="hero-cta">Pour yourself in</a>
 
-<!-- ── HERO ───────────────────────────────────────────────── -->
-<section class="hero" id="home">
-    <img src="Uncorked Duo.png" alt="Uncorked Duo" class="hero-logo">
-    <p class="hero-eyebrow">Wine Knowledge &amp; Tasting</p>
-    <p class="hero-tagline">Discovering the world of wine,<br>one beautiful glass at a time</p>
-    <div class="hero-rule"></div>
-    <a href="#about" class="hero-cta">Pour yourself in</a>
+			<div class="scroll-hint" aria-hidden="true">
+				<div class="scroll-hint-bar"></div>
+				<span class="scroll-hint-label">Scroll</span>
+			</div>
+		</section>
 
-    <div class="scroll-hint" aria-hidden="true">
-        <div class="scroll-hint-bar"></div>
-        <span class="scroll-hint-label">Scroll</span>
-    </div>
-</section>
+		<!-- ── ABOUT ───────────────────────────────────────────────── -->
+		<section class="section about" id="about">
+			<div class="container">
+				<div class="about-grid">
+					<div
+						class="about-clickable"
+						onclick="openModal('modal-about')"
+						role="button"
+						tabindex="0"
+						aria-label="Read more about us"
+						onkeydown="
+							if (event.key === 'Enter' || event.key === ' ')
+								openModal('modal-about')
+						"
+					>
+						<span class="label fi">Who We Are</span>
+						<h2 class="title fi d1">
+							Two sisters,<br />One <em>love of wine</em>
+						</h2>
+						<p class="body-text fi d2">
+							We're Uncorked Duo – twins exploring the wine world one glass
+							(read: bottle) at a time. Our interest in wine started early,
+							through travel with our family. From visiting vineyards to
+							experiencing different food cultures and local wines, we were
+							introduced to the idea that wine is about much more than what's in
+							the glass.
+						</p>
+						<p class="body-text about-full fi d3" style="margin-top: 1.1rem">
+							Since then, we've carried on that tradition in our own way –
+							travelling to wine regions, attending tastings, and visiting wine
+							festivals around the world. Along the way, we've developed a
+							deeper appreciation not just for wine itself, but for the stories,
+							people, and cultures behind it. For us, wine isn't just a drink or
+							a hobby. It's a way of understanding a place, a moment, and a
+							shared experience.
+						</p>
 
-<!-- ── ABOUT ───────────────────────────────────────────────── -->
-<section class="section about" id="about">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-clickable" onclick="openModal('modal-about')" role="button" tabindex="0" aria-label="Read more about us" onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-about')">
-                <span class="label fi">Who We Are</span>
-                <h2 class="title fi d1">Twin sisters,<br>one <em>love of wine</em></h2>
-                <p class="body-text fi d2">
-                    We're Uncorked Duo – two sisters exploring the wine world one glass
-                    (read: bottle) at a time. Our interest in wine started early, through
-                    travel with our family. From visiting vineyards to experiencing different
-                    food cultures and local wines, we were introduced to the idea that wine
-                    is about much more than what's in the glass.
-                </p>
-                <p class="body-text about-full fi d3" style="margin-top:1.1rem">
-                    Since then, we've carried on that tradition in our own way – travelling
-                    to wine regions, attending tastings, and visiting wine festivals around
-                    the world. Along the way, we've developed a deeper appreciation not just
-                    for wine itself, but for the stories, people, and cultures behind it.
-                    For us, wine isn't just a drink or a hobby. It's a way of understanding
-                    a place, a moment, and a shared experience.
-                </p>
+						<p class="body-text about-full fi d3" style="margin-top: 1.1rem">
+							We use our platform to document what we're learning – from wine
+							education and tastings to travel, events, and unexpected pairings.
+							More recently, we've started hosting our own tastings, creating
+							relaxed and engaging spaces for others to explore wine in a way
+							that feels accessible and enjoyable. From France, Italy, and Spain
+							to Turkey, Japan, and beyond, we share stories, tasting notes, and
+							the sheer joy of discovery, one bottle at a time.
+						</p>
 
-                <p class="body-text about-full fi d3" style="margin-top:1.1rem">
-                    We use our platform to document what we're learning – from wine education
-                    and tastings to travel, events, and unexpected pairings. More recently,
-                    we've started hosting our own tastings, creating relaxed and engaging
-                    spaces for others to explore wine in a way that feels accessible and
-                    enjoyable. From France, Italy, and Spain to Turkey, Japan, and beyond,
-                    we share stories, tasting notes, and the sheer joy of discovery, one
-                    bottle at a time.
-                </p>
+						<button class="about-more fi d3" onclick="openModal('modal-about')">
+							Read more →
+						</button>
 
-                <button class="about-more fi d3" onclick="openModal('modal-about')">Read more →</button>
+						<span class="quals-label fi">Qualifications</span>
+						<div class="quals fi">
+							<div class="qual">
+								<span class="qual-name">WSET Level 2 (Distinction)</span>
+								<span class="qual-school">WSET School London</span>
+							</div>
+							<div class="qual">
+								<span class="qual-name">Rioja Enthusiast</span>
+								<span class="qual-school">Rioja Wine Academy</span>
+							</div>
+							<div class="qual">
+								<span class="qual-name">WSET Level 3</span>
+								<span class="qual-school"
+									>WSET School London<span class="qual-progress"
+										>In progress</span
+									></span
+								>
+							</div>
+							<div class="qual">
+								<span class="qual-name">Port Essentials</span>
+								<span class="qual-school"
+									>School of Port<span class="qual-progress"
+										>In progress</span
+									></span
+								>
+							</div>
+						</div>
+					</div>
+					<div class="about-visual fi d2" aria-hidden="true">
+						<div class="ring ring-lg"></div>
+						<div class="ring ring-sm"></div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-                <span class="quals-label fi">Qualifications</span>
-                <div class="quals fi">
-                    <div class="qual">
-                        <span class="qual-name">WSET Level 2 (Distinction)</span>
-                        <span class="qual-school">WSET School London</span>
-                    </div>
-                    <div class="qual">
-                        <span class="qual-name">Rioja Enthusiast</span>
-                        <span class="qual-school">Rioja Wine Academy</span>
-                    </div>
-                    <div class="qual">
-                        <span class="qual-name">WSET Level 3</span>
-                        <span class="qual-school">WSET School London<span class="qual-progress">In progress</span></span>
-                    </div>
-                    <div class="qual">
-                        <span class="qual-name">Port Essentials</span>
-                        <span class="qual-school">School of Port<span class="qual-progress">In progress</span></span>
-                    </div>
-                </div>
-            </div>
-            <div class="about-visual fi d2" aria-hidden="true">
-                <div class="ring ring-lg"></div>
-                <div class="ring ring-sm"></div>
-            </div>
-        </div>
-    </div>
-</section>
+		<!-- ── WHAT WE DO ──────────────────────────────────────────── -->
+		<section class="section offer" id="offer">
+			<div class="container">
+				<span class="label fi">What We Do</span>
+				<h2 class="title fi d1">Wine, travel &amp;<br /><em>education</em></h2>
+				<div class="offer-grid">
+					<div
+						class="offer-card fi"
+						role="button"
+						tabindex="0"
+						onclick="openModal('modal-travel')"
+						onkeydown="
+							if (event.key === 'Enter' || event.key === ' ')
+								openModal('modal-travel')
+						"
+					>
+						<div class="offer-num">01</div>
+						<h3 class="offer-title">Wine Travel &amp; Tourism</h3>
+						<p class="offer-body">
+							We explore wine regions, vineyards, and festivals around the
+							world, sharing the stories, people, and cultures behind the wines.
+						</p>
+						<span class="offer-more">Find out more →</span>
+					</div>
 
-<!-- ── WHAT WE DO ──────────────────────────────────────────── -->
-<section class="section offer" id="offer">
-    <div class="container">
-        <span class="label fi">What We Do</span>
-        <h2 class="title fi d1">Wine, travel &amp;<br><em>education</em></h2>
-        <div class="offer-grid">
+					<div
+						class="offer-card fi d1"
+						role="button"
+						tabindex="0"
+						onclick="openModal('modal-education')"
+						onkeydown="
+							if (event.key === 'Enter' || event.key === ' ')
+								openModal('modal-education')
+						"
+					>
+						<div class="offer-num">02</div>
+						<h3 class="offer-title">Wine Education</h3>
+						<p class="offer-body">
+							We break down wine in a way that is clear, engaging, and
+							approachable – covering regions, grape varieties, styles, and
+							pairings without jargon.
+						</p>
+						<span class="offer-more">Find out more →</span>
+					</div>
 
-            <div class="offer-card fi"
-                 role="button" tabindex="0"
-                 onclick="openModal('modal-travel')"
-                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-travel')">
-                <div class="offer-num">01</div>
-                <h3 class="offer-title">Wine Travel &amp; Tourism</h3>
-                <p class="offer-body">
-                    We explore wine regions, vineyards, and festivals around the world,
-                    sharing the stories, people, and cultures behind the wines.
-                </p>
-                <span class="offer-more">Find out more →</span>
-            </div>
+					<div
+						class="offer-card fi d2"
+						role="button"
+						tabindex="0"
+						onclick="openModal('modal-tastings')"
+						onkeydown="
+							if (event.key === 'Enter' || event.key === ' ')
+								openModal('modal-tastings')
+						"
+					>
+						<div class="offer-num">03</div>
+						<h3 class="offer-title">Wine Tastings</h3>
+						<p class="offer-body">
+							We host relaxed, interactive wine tastings designed to make wine
+							more accessible and enjoyable – from themed evenings to private
+							events.
+						</p>
+						<span class="offer-more">Find out more →</span>
+					</div>
+				</div>
+			</div>
+		</section>
 
-            <div class="offer-card fi d1"
-                 role="button" tabindex="0"
-                 onclick="openModal('modal-education')"
-                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-education')">
-                <div class="offer-num">02</div>
-                <h3 class="offer-title">Wine Education</h3>
-                <p class="offer-body">
-                    We break down wine in a way that is clear, engaging, and approachable –
-                    covering regions, grape varieties, styles, and pairings without jargon.
-                </p>
-                <span class="offer-more">Find out more →</span>
-            </div>
+		<!-- ── WORK WITH US ────────────────────────────────────────── -->
+		<section class="section collab" id="collab">
+			<div class="container">
+				<span class="label fi">Work With Us</span>
+				<h2 class="title fi d1">
+					Let's build something<br /><em>together</em>
+				</h2>
+				<div class="collab-grid">
+					<div>
+						<p class="body-text fi d2">
+							We're Uncorked Duo – two sisters building a platform around wine,
+							travel, and tastings, with a background in hospitality,
+							communications, and events.
+						</p>
+						<p class="body-text fi d3" style="margin-top: 1rem">
+							We're currently growing our presence in the wine space and are
+							keen to collaborate with brands, venues, and organisations on
+							thoughtful, engaging content and experiences.
+						</p>
 
-            <div class="offer-card fi d2"
-                 role="button" tabindex="0"
-                 onclick="openModal('modal-tastings')"
-                 onkeydown="if(event.key==='Enter'||event.key===' ')openModal('modal-tastings')">
-                <div class="offer-num">03</div>
-                <h3 class="offer-title">Wine Tastings</h3>
-                <p class="offer-body">
-                    We host relaxed, interactive wine tastings designed to make wine more
-                    accessible and enjoyable – from themed evenings to private events.
-                </p>
-                <span class="offer-more">Find out more →</span>
-            </div>
+						<p class="collab-swipe-hint">Swipe to explore →</p>
+						<ul class="collab-list fi">
+							<li>
+								<div>
+									<span class="collab-list-title">Content creation</span>
+									Story-driven content across Instagram and digital platforms –
+									from tastings and wine pairings to travel and
+									behind-the-scenes moments.
+								</div>
+							</li>
+							<li>
+								<div>
+									<span class="collab-list-title"
+										>Wine tastings &amp; events</span
+									>
+									We host and are developing our own tastings, as well as
+									supporting events and activations with an engaging,
+									approachable perspective on wine.
+								</div>
+							</li>
+							<li>
+								<div>
+									<span class="collab-list-title"
+										>Wine travel &amp; destination features</span
+									>
+									We document wine regions, vineyards, and wine-themed
+									festivals, focusing on both the wines and the wider cultural
+									experience.
+								</div>
+							</li>
+							<li>
+								<div>
+									<span class="collab-list-title"
+										>Collaborations &amp; partnerships</span
+									>
+									We're open to working with wine brands, restaurants, PR
+									agencies, and tourism boards on tailored collaborations – from
+									product features to longer-term partnerships.
+								</div>
+							</li>
+							<li>
+								<div>
+									<span class="collab-list-title"
+										>Cultural &amp; language insights</span
+									>
+									Between us, we speak English, Swedish, Russian, Korean,
+									Spanish, and French – connecting wines and people from all
+									around the world.
+								</div>
+							</li>
+						</ul>
+						<div class="collab-dots" aria-hidden="true">
+							<button class="collab-dot active" aria-label="Slide 1"></button>
+							<button class="collab-dot" aria-label="Slide 2"></button>
+							<button class="collab-dot" aria-label="Slide 3"></button>
+							<button class="collab-dot" aria-label="Slide 4"></button>
+							<button class="collab-dot" aria-label="Slide 5"></button>
+						</div>
+					</div>
 
-        </div>
-    </div>
-</section>
+					<div class="collab-aside fi d2">
+						<p class="collab-aside-intro">
+							Our approach is simple: make wine feel accessible, engaging, and
+							relevant – combining education with real-world experiences.
+						</p>
+						<p class="body-text" style="margin-bottom: 2rem">
+							We're at an early stage, but building something long-term in the
+							wine space, and we're excited to partner with people and brands
+							along the way.
+						</p>
+						<div class="collab-meta">
+							<span class="collab-meta-item"
+								>London-based, available for travel</span
+							>
+						</div>
+						<a
+							href="mailto:uncorkedduowine@gmail.com?subject=Collaboration%20Enquiry"
+							class="collab-cta"
+							>Get in touch →</a
+						>
+					</div>
+				</div>
+			</div>
+		</section>
 
-<!-- ── WORK WITH US ────────────────────────────────────────── -->
-<section class="section collab" id="collab">
-    <div class="container">
-        <span class="label fi">Work With Us</span>
-        <h2 class="title fi d1">Let's build something<br><em>together</em></h2>
-        <div class="collab-grid">
-            <div>
-                <p class="body-text fi d2">
-                    We're Uncorked Duo – two sisters building a platform around wine,
-                    travel, and tastings, with a background in hospitality, communications,
-                    and events, and WSET Level 2 (Distinction).
-                </p>
-                <p class="body-text fi d3" style="margin-top:1rem">
-                    We're currently growing our presence in the wine space and are keen to
-                    collaborate with brands, venues, and organisations on thoughtful,
-                    engaging content and experiences.
-                </p>
+		<!-- ── INSTAGRAM ───────────────────────────────────────────── -->
+		<section class="section instagram" id="instagram">
+			<div class="container">
+				<span class="label fi">On Instagram</span>
+				<h2 class="title fi d1">Follow our <em>journey</em></h2>
+				<p class="instagram-handle fi d2">@uncorked_duo</p>
 
-                <p class="collab-swipe-hint">Swipe to explore →</p>
-                <ul class="collab-list fi">
-                    <li>
-                        <div>
-                            <span class="collab-list-title">Content creation</span>
-                            Story-driven content across Instagram and digital platforms –
-                            from tastings and wine pairings to travel and behind-the-scenes moments.
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <span class="collab-list-title">Wine tastings &amp; events</span>
-                            We host and are developing our own tastings, as well as supporting
-                            events and activations with an engaging, approachable perspective on wine.
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <span class="collab-list-title">Wine travel &amp; destination features</span>
-                            We document wine regions, vineyards, and wine-themed festivals, focusing
-                            on both the wines and the wider cultural experience.
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <span class="collab-list-title">Collaborations &amp; partnerships</span>
-                            We're open to working with wine brands, restaurants, PR agencies, and
-                            tourism boards on tailored collaborations – from product features to
-                            longer-term partnerships.
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <span class="collab-list-title">Cultural &amp; language insights</span>
-                            Between us, we speak English, Swedish, Russian, Korean, Spanish, and
-                            French – connecting wines and people from all around the world.
-                        </div>
-                    </li>
-                </ul>
-                <div class="collab-dots" aria-hidden="true">
-                    <button class="collab-dot active" aria-label="Slide 1"></button>
-                    <button class="collab-dot" aria-label="Slide 2"></button>
-                    <button class="collab-dot" aria-label="Slide 3"></button>
-                    <button class="collab-dot" aria-label="Slide 4"></button>
-                    <button class="collab-dot" aria-label="Slide 5"></button>
-                </div>
-            </div>
+				<div class="instagram-feed-wrapper fi d3">
+					<behold-widget feed-id="1SGcZXKl9aKl0dfyGjHJ"></behold-widget>
+				</div>
 
-            <div class="collab-aside fi d2">
-                <p class="collab-aside-intro">
-                    Our approach is simple: make wine feel accessible, engaging, and relevant –
-                    combining education with real-world experiences.
-                </p>
-                <p class="body-text" style="margin-bottom:2rem">
-                    We're at an early stage, but building something long-term in the wine space,
-                    and we're excited to partner with people and brands along the way.
-                </p>
-                <div class="collab-meta">
-                    <span class="collab-meta-item">London-based, available for travel</span>
-                </div>
-                <a href="mailto:uncorkedduowine@gmail.com?subject=Collaboration%20Enquiry" class="collab-cta">Get in touch →</a>
-            </div>
-        </div>
-    </div>
-</section>
+				<a
+					href="https://www.instagram.com/uncorked_duo"
+					class="instagram-cta fi d3"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<rect x="2" y="2" width="20" height="20" rx="5" />
+						<circle cx="12" cy="12" r="4" />
+						<circle
+							cx="17.5"
+							cy="6.5"
+							r="0.75"
+							fill="currentColor"
+							stroke="none"
+						/>
+					</svg>
+					Follow @uncorked_duo
+				</a>
+			</div>
+		</section>
 
-<!-- ── INSTAGRAM ───────────────────────────────────────────── -->
-<section class="section instagram" id="instagram">
-    <div class="container">
-        <span class="label fi">On Instagram</span>
-        <h2 class="title fi d1">Follow our <em>journey</em></h2>
-        <p class="instagram-handle fi d2">@uncorked_duo</p>
+		<!-- ── CONTACT ─────────────────────────────────────────────── -->
+		<section class="section contact" id="contact">
+			<div class="container">
+				<span class="label fi">Get In Touch</span>
+				<h2 class="title fi d1">Let's raise<br />a <em>glass together</em></h2>
+				<p class="body-text fi d2">
+					Have a question about our events, want to book a tasting evening, or
+					simply want to talk wine? We'd love to hear from you.
+				</p>
+				<a
+					href="mailto:uncorkedduowine@gmail.com?subject=Let%27s%20raise%20a%20glass%20together"
+					class="contact-email fi d3"
+				>
+					uncorkedduowine@gmail.com
+				</a>
+			</div>
+		</section>
 
-        <div class="instagram-feed-wrapper fi d3">
-            <behold-widget feed-id="1SGcZXKl9aKl0dfyGjHJ"></behold-widget>
-        </div>
+		<!-- ── FOOTER ──────────────────────────────────────────────── -->
+		<footer class="footer">
+			<p>&copy; 2026 Uncorked Duo. All rights reserved.</p>
+		</footer>
 
-        <a href="https://www.instagram.com/uncorked_duo"
-           class="instagram-cta fi d3"
-           target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
-            </svg>
-            Follow @uncorked_duo
-        </a>
-    </div>
-</section>
+		<!-- ══ MODALS ══════════════════════════════════════════════════ -->
 
-<!-- ── CONTACT ─────────────────────────────────────────────── -->
-<section class="section contact" id="contact">
-    <div class="container">
-        <span class="label fi">Get In Touch</span>
-        <h2 class="title fi d1">Let's raise<br>a <em>glass together</em></h2>
-        <p class="body-text fi d2">
-            Have a question about our events, want to book a tasting evening,
-            or simply want to talk wine? We'd love to hear from you.
-        </p>
-        <a href="mailto:uncorkedduowine@gmail.com?subject=Let%27s%20raise%20a%20glass%20together" class="contact-email fi d3">
-            uncorkedduowine@gmail.com
-        </a>
-    </div>
-</section>
+		<!-- Modal: About Us -->
+		<div
+			class="modal-overlay"
+			id="modal-about"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="modal-about-title"
+		>
+			<div class="modal">
+				<div class="modal-header">
+					<button
+						class="modal-close"
+						onclick="closeModal('modal-about')"
+						aria-label="Close"
+					>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<path d="M18 6L6 18M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+				<div class="modal-scroll">
+					<span class="label" style="margin-bottom: 0.6rem">Who We Are</span>
+					<h2 class="modal-title" id="modal-about-title">
+						Twin sisters,<br />one <em>love of wine</em>
+					</h2>
+					<div class="modal-rule"></div>
+					<p class="modal-body">
+						We're Uncorked Duo – two sisters exploring the wine world one glass
+						(read: bottle) at a time. Our interest in wine started early,
+						through travel with our family. From visiting vineyards to
+						experiencing different food cultures and local wines, we were
+						introduced to the idea that wine is about much more than what's in
+						the glass.
+					</p>
+					<p class="modal-body">
+						Since then, we've carried on that tradition in our own way –
+						travelling to wine regions, attending tastings, and visiting wine
+						festivals around the world. Along the way, we've developed a deeper
+						appreciation not just for wine itself, but for the stories, people,
+						and cultures behind it. For us, wine isn't just a drink or a hobby.
+						It's a way of understanding a place, a moment, and a shared
+						experience.
+					</p>
+					<p class="modal-body">
+						We use our platform to document what we're learning – from wine
+						education and tastings to travel, events, and unexpected pairings.
+						More recently, we've started hosting our own tastings, creating
+						relaxed and engaging spaces for others to explore wine in a way that
+						feels accessible and enjoyable. From France, Italy, and Spain to
+						Turkey, Japan, and beyond, we share stories, tasting notes, and the
+						sheer joy of discovery, one bottle at a time.
+					</p>
+				</div>
+			</div>
+		</div>
 
-<!-- ── FOOTER ──────────────────────────────────────────────── -->
-<footer class="footer">
-    <p>&copy; 2026 Uncorked Duo. All rights reserved.</p>
-</footer>
+		<!-- Modal: Wine Travel & Tourism -->
+		<div
+			class="modal-overlay"
+			id="modal-travel"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="modal-travel-title"
+		>
+			<div class="modal">
+				<div class="modal-header">
+					<button
+						class="modal-close"
+						onclick="closeModal('modal-travel')"
+						aria-label="Close"
+					>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<path d="M18 6L6 18M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+				<div class="modal-scroll">
+					<div class="modal-num">01</div>
+					<h2 class="modal-title" id="modal-travel-title">
+						Wine Travel &amp; Tourism
+					</h2>
+					<div class="modal-rule"></div>
+					<p class="modal-body">
+						We explore wine regions, vineyards, and festivals around the world,
+						sharing the stories, people, and cultures behind the wines. From
+						established regions to lesser-known destinations, we focus on
+						experiences that bring wine to life.
+					</p>
+					<p class="modal-body" style="margin-top: 1rem; margin-bottom: 1.8rem">
+						Wine travel, for us, is about far more than what's in the glass —
+						it's about understanding a place, its people, and the history behind
+						every bottle.
+					</p>
+					<ul class="modal-details">
+						<li>Visits to vineyards, estates, and wine-producing regions</li>
+						<li>Wine festivals and cultural experiences worldwide</li>
+						<li>Tasting notes and destination guides</li>
+						<li>From France, Italy, and Spain to Turkey, Japan, and beyond</li>
+						<li>Stories that connect wine, travel, and culture</li>
+					</ul>
+					<a
+						href="mailto:uncorkedduowine@gmail.com?subject=Enquiry%20%E2%80%94%20Wine%20Travel"
+						class="modal-btn"
+					>
+						Get In Touch
+					</a>
+				</div>
+			</div>
+		</div>
 
-<!-- ══ MODALS ══════════════════════════════════════════════════ -->
+		<!-- Modal: Wine Education -->
+		<div
+			class="modal-overlay"
+			id="modal-education"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="modal-education-title"
+		>
+			<div class="modal">
+				<div class="modal-header">
+					<button
+						class="modal-close"
+						onclick="closeModal('modal-education')"
+						aria-label="Close"
+					>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<path d="M18 6L6 18M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+				<div class="modal-scroll">
+					<div class="modal-num">02</div>
+					<h2 class="modal-title" id="modal-education-title">Wine Education</h2>
+					<div class="modal-rule"></div>
+					<p class="modal-body">
+						We break down wine in a way that is clear, engaging, and
+						approachable. With a WSET Level 2 qualification (Distinction) and
+						Level 3 in progress, we share what we're learning through content
+						that helps make sense of regions, grape varieties, styles, and
+						pairings — without unnecessary jargon.
+					</p>
+					<p class="modal-body" style="margin-top: 1rem; margin-bottom: 1.8rem">
+						Want us to bring our education in person? We'd love to hear about
+						what you have in mind — from corporate team events to private
+						masterclasses.
+					</p>
+					<ul class="modal-details">
+						<li>
+							Wine regions, grape varieties &amp; tasting notes demystified
+						</li>
+						<li>Food &amp; wine pairing guides</li>
+						<li>Regular content on Instagram</li>
+						<li>Private &amp; corporate masterclasses available on request</li>
+						<li>No prior wine knowledge needed</li>
+					</ul>
+					<a
+						href="mailto:uncorkedduowine@gmail.com?subject=Enquiry%20%E2%80%94%20Wine%20Education"
+						class="modal-btn"
+					>
+						Get In Touch
+					</a>
+				</div>
+			</div>
+		</div>
 
-<!-- Modal: About Us -->
-<div class="modal-overlay" id="modal-about" role="dialog" aria-modal="true" aria-labelledby="modal-about-title">
-    <div class="modal">
-        <div class="modal-header">
-            <button class="modal-close" onclick="closeModal('modal-about')" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-        <div class="modal-scroll">
-            <span class="label" style="margin-bottom:0.6rem">Who We Are</span>
-            <h2 class="modal-title" id="modal-about-title">Twin sisters,<br>one <em>love of wine</em></h2>
-            <div class="modal-rule"></div>
-            <p class="modal-body">
-                We're Uncorked Duo – two sisters exploring the wine world one glass
-                (read: bottle) at a time. Our interest in wine started early, through
-                travel with our family. From visiting vineyards to experiencing different
-                food cultures and local wines, we were introduced to the idea that wine
-                is about much more than what's in the glass.
-            </p>
-            <p class="modal-body">
-                Since then, we've carried on that tradition in our own way – travelling
-                to wine regions, attending tastings, and visiting wine festivals around
-                the world. Along the way, we've developed a deeper appreciation not just
-                for wine itself, but for the stories, people, and cultures behind it.
-                For us, wine isn't just a drink or a hobby. It's a way of understanding
-                a place, a moment, and a shared experience.
-            </p>
-            <p class="modal-body">
-                We use our platform to document what we're learning – from wine education
-                and tastings to travel, events, and unexpected pairings. More recently,
-                we've started hosting our own tastings, creating relaxed and engaging
-                spaces for others to explore wine in a way that feels accessible and
-                enjoyable. From France, Italy, and Spain to Turkey, Japan, and beyond,
-                we share stories, tasting notes, and the sheer joy of discovery, one
-                bottle at a time.
-            </p>
-        </div>
-    </div>
-</div>
+		<!-- Modal: Wine Tastings -->
+		<div
+			class="modal-overlay"
+			id="modal-tastings"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="modal-tastings-title"
+		>
+			<div class="modal">
+				<div class="modal-header">
+					<button
+						class="modal-close"
+						onclick="closeModal('modal-tastings')"
+						aria-label="Close"
+					>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+						>
+							<path d="M18 6L6 18M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+				<div class="modal-scroll">
+					<div class="modal-num">03</div>
+					<h2 class="modal-title" id="modal-tastings-title">Wine Tastings</h2>
+					<div class="modal-rule"></div>
+					<p class="modal-body">
+						We host relaxed, interactive wine tastings designed to make wine
+						more accessible and enjoyable. Whether it's themed tastings, food
+						and wine pairings, or private events, our focus is on creating
+						engaging experiences that encourage curiosity and discovery.
+					</p>
+					<p class="modal-body" style="margin-top: 1rem; margin-bottom: 1.8rem">
+						Whether you're celebrating a birthday, planning a unique date night,
+						or simply gathering friends for something a little different, we
+						tailor each evening to your group.
+					</p>
+					<ul class="modal-details">
+						<li>Guided by your hosts — us, the Uncorked Duo</li>
+						<li>Curated wine selections from around the world</li>
+						<li>Small, intimate group settings</li>
+						<li>Perfect for celebrations, hen parties &amp; private events</li>
+						<li>Suitable for all levels — beginners very welcome</li>
+					</ul>
+					<a
+						href="mailto:uncorkedduowine@gmail.com?subject=Booking%20Enquiry%20%E2%80%94%20Wine%20Tasting%20Evening"
+						class="modal-btn"
+					>
+						Book an Evening
+					</a>
+				</div>
+			</div>
+		</div>
 
-<!-- Modal: Wine Travel & Tourism -->
-<div class="modal-overlay" id="modal-travel" role="dialog" aria-modal="true" aria-labelledby="modal-travel-title">
-    <div class="modal">
-        <div class="modal-header">
-            <button class="modal-close" onclick="closeModal('modal-travel')" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-        <div class="modal-scroll">
-            <div class="modal-num">01</div>
-            <h2 class="modal-title" id="modal-travel-title">Wine Travel &amp; Tourism</h2>
-            <div class="modal-rule"></div>
-            <p class="modal-body">
-                We explore wine regions, vineyards, and festivals around the world, sharing the
-                stories, people, and cultures behind the wines. From established regions to
-                lesser-known destinations, we focus on experiences that bring wine to life.
-            </p>
-            <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
-                Wine travel, for us, is about far more than what's in the glass — it's about
-                understanding a place, its people, and the history behind every bottle.
-            </p>
-            <ul class="modal-details">
-                <li>Visits to vineyards, estates, and wine-producing regions</li>
-                <li>Wine festivals and cultural experiences worldwide</li>
-                <li>Tasting notes and destination guides</li>
-                <li>From France, Italy, and Spain to Turkey, Japan, and beyond</li>
-                <li>Stories that connect wine, travel, and culture</li>
-            </ul>
-            <a href="mailto:uncorkedduowine@gmail.com?subject=Enquiry%20%E2%80%94%20Wine%20Travel" class="modal-btn">
-                Get In Touch
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Modal: Wine Education -->
-<div class="modal-overlay" id="modal-education" role="dialog" aria-modal="true" aria-labelledby="modal-education-title">
-    <div class="modal">
-        <div class="modal-header">
-            <button class="modal-close" onclick="closeModal('modal-education')" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-        <div class="modal-scroll">
-            <div class="modal-num">02</div>
-            <h2 class="modal-title" id="modal-education-title">Wine Education</h2>
-            <div class="modal-rule"></div>
-            <p class="modal-body">
-                We break down wine in a way that is clear, engaging, and approachable. With a
-                WSET Level 2 qualification (Distinction) and Level 3 in progress, we share what
-                we're learning through content that helps make sense of regions, grape varieties,
-                styles, and pairings — without unnecessary jargon.
-            </p>
-            <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
-                Want us to bring our education in person? We'd love to hear about
-                what you have in mind — from corporate team events to private masterclasses.
-            </p>
-            <ul class="modal-details">
-                <li>Wine regions, grape varieties &amp; tasting notes demystified</li>
-                <li>Food &amp; wine pairing guides</li>
-                <li>Regular content on Instagram</li>
-                <li>Private &amp; corporate masterclasses available on request</li>
-                <li>No prior wine knowledge needed</li>
-            </ul>
-            <a href="mailto:uncorkedduowine@gmail.com?subject=Enquiry%20%E2%80%94%20Wine%20Education" class="modal-btn">
-                Get In Touch
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Modal: Wine Tastings -->
-<div class="modal-overlay" id="modal-tastings" role="dialog" aria-modal="true" aria-labelledby="modal-tastings-title">
-    <div class="modal">
-        <div class="modal-header">
-            <button class="modal-close" onclick="closeModal('modal-tastings')" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-        <div class="modal-scroll">
-            <div class="modal-num">03</div>
-            <h2 class="modal-title" id="modal-tastings-title">Wine Tastings</h2>
-            <div class="modal-rule"></div>
-            <p class="modal-body">
-                We host relaxed, interactive wine tastings designed to make wine more accessible
-                and enjoyable. Whether it's themed tastings, food and wine pairings, or private
-                events, our focus is on creating engaging experiences that encourage curiosity
-                and discovery.
-            </p>
-            <p class="modal-body" style="margin-top:1rem; margin-bottom:1.8rem;">
-                Whether you're celebrating a birthday, planning a unique date night, or
-                simply gathering friends for something a little different, we tailor each
-                evening to your group.
-            </p>
-            <ul class="modal-details">
-                <li>Guided by your hosts — us, the Uncorked Duo</li>
-                <li>Curated wine selections from around the world</li>
-                <li>Small, intimate group settings</li>
-                <li>Perfect for celebrations, hen parties &amp; private events</li>
-                <li>Suitable for all levels — beginners very welcome</li>
-            </ul>
-            <a href="mailto:uncorkedduowine@gmail.com?subject=Booking%20Enquiry%20%E2%80%94%20Wine%20Tasting%20Evening" class="modal-btn">
-                Book an Evening
-            </a>
-        </div>
-    </div>
-</div>
-
-<script src="js/main.js"></script>
-</body>
+		<script src="js/main.js"></script>
+	</body>
 </html>
