@@ -510,13 +510,6 @@ body {
     max-width: 900px;
 }
 
-.instagram-placeholder {
-    width: 100%;
-    border: 1px dashed rgba(196,168,152,0.2);
-    padding: 4rem 1.5rem;
-    color: rgba(196,168,152,0.3);
-    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-}
 
 .instagram-cta {
     display: inline-flex; align-items: center; gap: 0.75rem;
