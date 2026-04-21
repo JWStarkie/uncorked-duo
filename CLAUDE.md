@@ -2,16 +2,19 @@
 
 ## Project overview
 Single-page website for Uncorked Duo — twin sisters (wine education, tastings, travel).
-All code lives in a single file: **`index.html`** (HTML + CSS + JS, no build step, no framework).
+- **Instagram:** @uncorked_duo (Behold widget, feed-id: `1SGcZXKl9aKl0dfyGjHJ`)
+- **Contact email (current):** uncorkedduowine@gmail.com — will move to custom domain address once live
 
 ## File structure
 ```
 uncorked-duo/
-├── index.html      — HTML shell only (no inline styles or scripts)
+├── index.html          — HTML shell only (no inline styles or scripts)
 ├── css/
-│   └── main.css    — all styles (mobile-first, single file)
-└── js/
-    └── main.js     — all JavaScript (no framework, vanilla only)
+│   └── main.css        — all styles (mobile-first, single file)
+├── js/
+│   └── main.js         — all JavaScript (no framework, vanilla only)
+└── tests/
+    └── test.js         — 66-test Node.js suite, run with: node tests/test.js
 ```
 
 ## Tech stack
@@ -35,11 +38,19 @@ uncorked-duo/
 - **Fade-in animations**: `.fi` class + IntersectionObserver; delay variants `.d2`, `.d3`
 - **Nav**: scroll-triggered background; hamburger on mobile; logo-click closes mobile menu
 
-## Contact
-`uncorkedduowine@gmail.com`
-
 ## Conventions
-- Do not split into multiple files — keep everything in `index.html`
 - No external JS libraries
 - Prefer editing existing rules over adding new classes
-- Test changes on mobile viewport first
+- Test changes with `node tests/test.js` before committing
+- Test on mobile viewport first
+
+## Planned infrastructure (not yet implemented)
+- **Hosting:** Azure Static Web Apps (free tier)
+- **Domain:** Custom domain TBC — DNS will point to Azure
+- **Email:** Zoho Mail on the custom domain
+  - MX records for Zoho added to DNS (Azure DNS or registrar)
+  - Verify domain in Zoho admin
+  - Update mailto links in site from Gmail to new domain address
+  - Note: user has an existing Azure subscription in a **different tenant** — DNS zones cannot be moved directly between tenants
+- **CMS:** Not yet implemented — Sanity (email/password, free tier) is the favoured option
+  - Will require a build step: `content.json` + `index.template.html` → `node build.js` → `index.html`
